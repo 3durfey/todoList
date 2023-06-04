@@ -1,0 +1,350 @@
+:root {
+  --colorA: rgba(169, 169, 169, 0.239);
+}
+button {
+  background-color: white;
+  border: none;
+  height: 50px;
+  font-size: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-left: 0;
+  margin-right: 0;
+}
+#sidebar > button:hover {
+  background-color: var(--colorA);
+  border-radius: 10px;
+}
+body {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  font-family: "Oswald", sans-serif;
+}
+header {
+  background-color: var(--colorA);
+  display: flex;
+  padding: 10px;
+}
+.menuBttnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menuBttn {
+  background-color: var(--colorA);
+  border-radius: 10px;
+}
+
+.main {
+  flex-grow: 0.97;
+  background-color: var(--colorA);
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+}
+footer {
+  flex-grow: 0.03;
+  background-color: var(--colorA);
+}
+
+#sidebar {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 300px;
+  max-width: 300px;
+  min-width: 300px;
+  padding-left: 50px;
+}
+
+i {
+  padding: 10px;
+}
+.projectContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+  flex-grow: 0.8;
+  align-items: center;
+}
+
+.projectContainerTop {
+  background-color: grey;
+  height: 200px;
+  max-height: 100px;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.projectContainerBottom {
+  background-color: orange;
+  height: 100px;
+}
+.projectContainerMid {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: auto;
+  align-items: center;
+  border-radius: 10px;
+}
+.projectContainerMid::-webkit-scrollbar {
+  display: none;
+}
+.projectContainerSides {
+  flex-grow: 0.4;
+  background-color: grey;
+}
+.getInfo {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 200px;
+  border: solid black 5px;
+  border-radius: 20px;
+  left: 40%;
+  top: -10%;
+  transform: translate(0%, -40%) scale(0.1);
+  transition: 0.4s, top 0.4s;
+  position: fixed;
+  visibility: hidden;
+}
+.getInfoButtonContainer {
+  display: flex;
+  flex-direction: row;
+}
+.getInfoButtonContainer > button:hover {
+  color: white;
+  background-color: black;
+}
+.formButton {
+  border-radius: 20px;
+  width: 100px;
+  height: 30px;
+  margin: 5px;
+  border: solid;
+}
+.getInfo > #name {
+  width: 200px;
+  height: 40px;
+  margin-bottom: 20px;
+}
+.getInfoTodo {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 600px;
+  border: solid black 5px;
+  border-radius: 20px;
+  left: 40%;
+  top: -10%;
+  transform: translate(0%, -40%) scale(0.1);
+  transition: 0.4s, top 0.4s;
+  position: fixed;
+  visibility: hidden;
+  font-size: 20px;
+}
+#todoInfo > input,
+#todoInfo > textarea {
+  width: 200px;
+}
+.dropdownMenus {
+  display: flex;
+  margin: 0;
+}
+.getInfoVisible {
+  visibility: visible;
+  transform: translate(0, 0) scale(1);
+  left: 41%;
+  top: 30%;
+}
+
+#name,
+#todo,
+#title,
+#dueDate,
+#todoEdit,
+#description,
+#descriptionEdit,
+#dueDateEdit {
+  height: 40px;
+  width: 400px;
+  font-size: 25px;
+  border-radius: 10px;
+  margin: 10px;
+}
+#priority,
+#project,
+#priorityEdit,
+#projectList {
+  width: 195px;
+  height: 40px;
+  font-size: 25px;
+  border-radius: 10px;
+  margin: 10px;
+}
+#todo,
+#todoEdit {
+  width: 400px;
+}
+#description,
+#descriptionEdit {
+  height: 150px;
+  width: 400px;
+}
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.project {
+  background-color: rgb(83, 78, 78);
+  flex-grow: 1;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+}
+.todo {
+  border: solid;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: grey;
+  padding: 10px;
+  margin: 10px;
+  padding-right: 0;
+  border-radius: 10px;
+  width: 500px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  box-shadow: 5px 5px 5px black;
+}
+.todo > button {
+  width: 70px;
+  height: 30px;
+  border-radius: 10px;
+  border: solid;
+}
+
+.buttonContainer > button {
+  margin: 2px;
+  background-color: darkgrey;
+  color: white;
+}
+.OptionColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.low {
+  background-color: green;
+}
+.medium {
+  background-color: yellow;
+}
+.high {
+  background-color: red;
+}
+
+.projectsLabel {
+  font-size: 20px;
+}
+#urgent > i {
+  padding-left: 17px;
+  padding-right: 15px;
+}
+.titleContainer > h1 {
+  padding: 0;
+  margin: 0;
+  margin-right: 20px;
+  background-color: grey;
+}
+.titleContainer {
+  width: 90%;
+  display: flex;
+  justify-content: begin;
+  align-items: end;
+  border-bottom: solid;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  background-color: grey;
+}
+.titleContainer > h4 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 2px;
+  background-color: grey;
+}
+.buttonContainer {
+  background-color: red;
+}
+.deleteButton {
+  background-color: red;
+  border-radius: 10px;
+  height: 30px;
+  border: solid;
+  margin: 5px;
+}
+.deleteButton:hover {
+  background-color: black;
+  color: red;
+  border: black;
+}
+.editButton {
+  border-radius: 10px;
+  height: 30px;
+  width: 60px;
+  padding: 0;
+  background-color: white;
+  border: solid;
+}
+.editButton:hover {
+  color: white;
+  background-color: black;
+  border: white;
+}
+.editTodo {
+  display: flex;
+  flex-direction: column;
+}
+/*
+edit container attributes
+*/
+#projectNameContainer {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+}
+.sideProjectContainer {
+  margin: 5px;
+  border: solid;
+  width: 170px;
+  display: flex;
+  justify-content: space-between;
+}
+.projectList:hover {
+  color: red;
+}
+.projectClassSidebar:hover {
+  color: grey;
+}
+.projectClassSidebar {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

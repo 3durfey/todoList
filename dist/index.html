@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/b05daecb25.js"
+      crossorigin="anonymous"
+    ></script>
+  <script defer src="maina4ec52603a7f495640ae.js"></script></head>
+  <body>
+    <header>
+      <div id="sideMenu" class="menuBttnContainer">
+        <button id="menuBttn" class="menuBttn">
+          <i class="fa-solid fa-bars fa-2xl"></i>
+        </button>
+      </div>
+    </header>
+    <div class="main">
+        <div id="sidebar">
+          <button id="main"> <i class="fa-sharp fa-solid fa-house fa-lg"></i>All</button>
+          <button id="today"><i class="fa-sharp fa-solid fa-calendar fa-lg"></i>Today</button>
+          <button id="upcoming"><i class="fa-sharp fa-solid fa-plus"></i>Upcoming</button>
+          <button id="urgent"><i class="fa-regular fa-exclamation fa-lg"></i>Urgent</button>
+        <div class="projectsLabel">Projects</div>
+        <button id="addProject"><i class="fa-sharp fa-solid fa-plus"></i>New Project</button>
+
+        <button id ="addTodoSide">
+          <i class="fa-sharp fa-solid fa-plus"></i> Add ToDo</button>
+
+        <button class="viewProjects">
+          <i class="fa-solid fa-arrow-right-long"></i>View All</button>
+        <div id="projectNameContainer"></div>
+      </div>
+      <div class="projectContainerSides"></div>
+        <div id="projectContainer" class="projectContainer">
+          <div id= "projectContainerTop" class="projectContainerTop">
+            <div id="titleContainer" class="titleContainer"></div>
+          </div>
+
+          <div id= "projectContainerMid" class="projectContainerMid"></div>
+          <div id= "projectContainerBottom" class="projectContainerBottom"></div>
+
+        </div>
+        <div class="projectContainerSides"></div>
+
+          </div>
+        </div>
+        <div id="getInfo" class="getInfo">
+          <input id="name" type="text" placeholder="Project Name" />
+          <div class="getInfoButtonContainer">
+            <button class="formButton" id="submitNewProject">Add</button>
+            <button class="formButton" id="exitButtonProject">Exit</button>
+          </div>
+
+
+        </div>
+        <div id="todoInfo" class="getInfoTodo">
+          <div class="dropdownMenus">
+            <div class="OptionColumn">
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority">
+              <option value="low">low</option>
+              <option value="medium">medium</option>
+              <option value="high">high</option>
+          </select>
+        </div>
+          <div class="OptionColumn">
+          <label for="priority">Project</label>
+          <select name="project" id="project">
+          </select>
+        </div>
+        </div>
+        <div class="inputContainer">
+          <label for="todoInfo">Title</label>
+          <input id="todo" type="text" placeholder="Todo" />
+          <label for="dueDate">Due Date</label>
+          <input id="dueDate" type="date" placeholder="Project Name" />
+          <label for="todoInfo">Description</label>
+            <textarea name="description" id="description" placeholder="Description" cols="30" rows="10"></textarea>
+            <div class="getInfoButtonContainer">
+              <button class="formButton" id="submitTodo">Add</button>
+              <button class="formButton" id="exitButton">Exit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer></footer>
+  </body>
+</html>
