@@ -10,7 +10,7 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "editContainer": () => (/* binding */ editContainer)
+/* harmony export */   editContainer: () => (/* binding */ editContainer)
 /* harmony export */ });
 function editContainer(todoBox, x, y) {
   todoBox.style.height = "400px";
@@ -82,7 +82,7 @@ function editContainer(todoBox, x, y) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "sortByDates": () => (/* binding */ sortByDates)
+/* harmony export */   sortByDates: () => (/* binding */ sortByDates)
 /* harmony export */ });
 //sorts dates
 function sortByDates(input) {
@@ -114,7 +114,403 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ":root {\n  --colorA: rgba(169, 169, 169, 0.239);\n}\n\nbutton {\n  background-color: white;\n  border: none;\n  height: 50px;\n  font-size: 20px;\n  padding-right: 20px;\n  padding-left: 20px;\n  margin-left: 0;\n  margin-right: 0;\n}\n\n#sidebar > button:hover {\n  background-color: var(--colorA);\n  border-radius: 10px;\n}\n\nbody {\n  background-color: black;\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  width: 100vw;\n  font-family: \"Oswald\", sans-serif;\n}\n\nheader {\n  background-color: var(--colorA);\n  display: flex;\n  padding: 10px;\n}\n\n.menuBttnContainer {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.menuBttn {\n  background-color: var(--colorA);\n  border-radius: 10px;\n}\n\n.main {\n  flex-grow: 0.97;\n  background-color: var(--colorA);\n  height: 30px;\n  display: flex;\n  flex-direction: row;\n}\n\nfooter {\n  flex-grow: 0.03;\n  background-color: var(--colorA);\n}\n\n#sidebar {\n  background-color: white;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  width: 300px;\n  max-width: 300px;\n  min-width: 300px;\n  padding-left: 50px;\n}\n\ni {\n  padding: 10px;\n}\n\n.projectContainer {\n  display: flex;\n  flex-direction: column;\n  background-color: grey;\n  flex-grow: 0.8;\n  align-items: center;\n}\n\n.projectContainerTop {\n  background-color: grey;\n  height: 200px;\n  max-height: 100px;\n  width: 400px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-bottom: 10px;\n}\n\n.projectContainerBottom {\n  background-color: orange;\n  height: 100px;\n}\n\n.projectContainerMid {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  padding: 20px;\n  overflow: auto;\n  align-items: center;\n  border-radius: 10px;\n}\n\n.projectContainerMid::-webkit-scrollbar {\n  display: none;\n}\n\n.projectContainerSides {\n  flex-grow: 0.4;\n  background-color: grey;\n}\n\n.getInfo {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 400px;\n  height: 200px;\n  border: solid black 5px;\n  border-radius: 20px;\n  left: 40%;\n  top: -10%;\n  transform: translate(0%, -40%) scale(0.1);\n  transition: 0.4s, top 0.4s;\n  position: fixed;\n  visibility: hidden;\n}\n\n.getInfoButtonContainer {\n  display: flex;\n  flex-direction: row;\n}\n\n.getInfoButtonContainer > button:hover {\n  color: white;\n  background-color: black;\n}\n\n.formButton {\n  border-radius: 20px;\n  width: 100px;\n  height: 30px;\n  margin: 5px;\n  border: solid;\n}\n\n.getInfo > #name {\n  width: 200px;\n  height: 40px;\n  margin-bottom: 20px;\n}\n\n.getInfoTodo {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 500px;\n  height: 600px;\n  border: solid black 5px;\n  border-radius: 20px;\n  left: 40%;\n  top: -10%;\n  transform: translate(0%, -40%) scale(0.1);\n  transition: 0.4s, top 0.4s;\n  position: fixed;\n  visibility: hidden;\n  font-size: 20px;\n}\n\n#todoInfo > input,\n#todoInfo > textarea {\n  width: 200px;\n}\n\n.dropdownMenus {\n  display: flex;\n  margin: 0;\n}\n\n.getInfoVisible {\n  visibility: visible;\n  transform: translate(0, 0) scale(1);\n  left: 41%;\n  top: 30%;\n}\n\n#name,\n#todo,\n#title,\n#dueDate,\n#todoEdit,\n#description,\n#descriptionEdit,\n#dueDateEdit {\n  height: 40px;\n  width: 400px;\n  font-size: 25px;\n  border-radius: 10px;\n  margin: 10px;\n}\n\n#priority,\n#project,\n#priorityEdit,\n#projectList {\n  width: 195px;\n  height: 40px;\n  font-size: 25px;\n  border-radius: 10px;\n  margin: 10px;\n}\n\n#todo,\n#todoEdit {\n  width: 400px;\n}\n\n#description,\n#descriptionEdit {\n  height: 150px;\n  width: 400px;\n}\n\n.inputContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.project {\n  background-color: rgb(83, 78, 78);\n  flex-grow: 1;\n  border-radius: 10px;\n  padding: 10px;\n  margin: 10px;\n}\n\n.todo {\n  border: solid;\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  background-color: grey;\n  padding: 10px;\n  margin: 10px;\n  padding-right: 0;\n  border-radius: 10px;\n  width: 500px;\n  height: 50px;\n  display: flex;\n  justify-content: space-between;\n  padding: 10px;\n  box-shadow: 5px 5px 5px black;\n}\n\n.todo > button {\n  width: 70px;\n  height: 30px;\n  border-radius: 10px;\n  border: solid;\n}\n\n.buttonContainer > button {\n  margin: 2px;\n  background-color: darkgrey;\n  color: white;\n}\n\n.OptionColumn {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.low {\n  background-color: green;\n}\n\n.medium {\n  background-color: yellow;\n}\n\n.high {\n  background-color: red;\n}\n\n.projectsLabel {\n  font-size: 20px;\n}\n\n#urgent > i {\n  padding-left: 17px;\n  padding-right: 15px;\n}\n\n.titleContainer > h1 {\n  padding: 0;\n  margin: 0;\n  margin-right: 20px;\n  background-color: grey;\n}\n\n.titleContainer {\n  width: 90%;\n  display: flex;\n  justify-content: begin;\n  align-items: end;\n  border-bottom: solid;\n  margin-bottom: 0;\n  padding-bottom: 0;\n  background-color: grey;\n}\n\n.titleContainer > h4 {\n  padding: 0;\n  margin: 0;\n  margin-bottom: 2px;\n  background-color: grey;\n}\n\n.buttonContainer {\n  background-color: red;\n}\n\n.deleteButton {\n  background-color: red;\n  border-radius: 10px;\n  height: 30px;\n  border: solid;\n  margin: 5px;\n}\n\n.deleteButton:hover {\n  background-color: black;\n  color: red;\n  border: black;\n}\n\n.editButton {\n  border-radius: 10px;\n  height: 30px;\n  width: 60px;\n  padding: 0;\n  background-color: white;\n  border: solid;\n}\n\n.editButton:hover {\n  color: white;\n  background-color: black;\n  border: white;\n}\n\n.editTodo {\n  display: flex;\n  flex-direction: column;\n}\n\n/*\nedit container attributes\n*/\n#projectNameContainer {\n  background-color: white;\n  display: flex;\n  flex-direction: column;\n  padding-left: 30px;\n}\n\n.sideProjectContainer {\n  margin: 5px;\n  border: solid;\n  width: 170px;\n  display: flex;\n  justify-content: space-between;\n}\n\n.projectList:hover {\n  color: red;\n}\n\n.projectClassSidebar:hover {\n  color: grey;\n}\n\n.projectClassSidebar {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.css"],"names":[],"mappings":"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","sourcesContent":[":root {\n  --colorA: rgba(169, 169, 169, 0.239);\n}\nbutton {\n  background-color: white;\n  border: none;\n  height: 50px;\n  font-size: 20px;\n  padding-right: 20px;\n  padding-left: 20px;\n  margin-left: 0;\n  margin-right: 0;\n}\n#sidebar > button:hover {\n  background-color: var(--colorA);\n  border-radius: 10px;\n}\nbody {\n  background-color: black;\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  width: 100vw;\n  font-family: \"Oswald\", sans-serif;\n}\nheader {\n  background-color: var(--colorA);\n  display: flex;\n  padding: 10px;\n}\n.menuBttnContainer {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.menuBttn {\n  background-color: var(--colorA);\n  border-radius: 10px;\n}\n\n.main {\n  flex-grow: 0.97;\n  background-color: var(--colorA);\n  height: 30px;\n  display: flex;\n  flex-direction: row;\n}\nfooter {\n  flex-grow: 0.03;\n  background-color: var(--colorA);\n}\n\n#sidebar {\n  background-color: white;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  width: 300px;\n  max-width: 300px;\n  min-width: 300px;\n  padding-left: 50px;\n}\n\ni {\n  padding: 10px;\n}\n.projectContainer {\n  display: flex;\n  flex-direction: column;\n  background-color: grey;\n  flex-grow: 0.8;\n  align-items: center;\n}\n\n.projectContainerTop {\n  background-color: grey;\n  height: 200px;\n  max-height: 100px;\n  width: 400px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-bottom: 10px;\n}\n.projectContainerBottom {\n  background-color: orange;\n  height: 100px;\n}\n.projectContainerMid {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  padding: 20px;\n  overflow: auto;\n  align-items: center;\n  border-radius: 10px;\n}\n.projectContainerMid::-webkit-scrollbar {\n  display: none;\n}\n.projectContainerSides {\n  flex-grow: 0.4;\n  background-color: grey;\n}\n.getInfo {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 400px;\n  height: 200px;\n  border: solid black 5px;\n  border-radius: 20px;\n  left: 40%;\n  top: -10%;\n  transform: translate(0%, -40%) scale(0.1);\n  transition: 0.4s, top 0.4s;\n  position: fixed;\n  visibility: hidden;\n}\n.getInfoButtonContainer {\n  display: flex;\n  flex-direction: row;\n}\n.getInfoButtonContainer > button:hover {\n  color: white;\n  background-color: black;\n}\n.formButton {\n  border-radius: 20px;\n  width: 100px;\n  height: 30px;\n  margin: 5px;\n  border: solid;\n}\n.getInfo > #name {\n  width: 200px;\n  height: 40px;\n  margin-bottom: 20px;\n}\n.getInfoTodo {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 500px;\n  height: 600px;\n  border: solid black 5px;\n  border-radius: 20px;\n  left: 40%;\n  top: -10%;\n  transform: translate(0%, -40%) scale(0.1);\n  transition: 0.4s, top 0.4s;\n  position: fixed;\n  visibility: hidden;\n  font-size: 20px;\n}\n#todoInfo > input,\n#todoInfo > textarea {\n  width: 200px;\n}\n.dropdownMenus {\n  display: flex;\n  margin: 0;\n}\n.getInfoVisible {\n  visibility: visible;\n  transform: translate(0, 0) scale(1);\n  left: 41%;\n  top: 30%;\n}\n\n#name,\n#todo,\n#title,\n#dueDate,\n#todoEdit,\n#description,\n#descriptionEdit,\n#dueDateEdit {\n  height: 40px;\n  width: 400px;\n  font-size: 25px;\n  border-radius: 10px;\n  margin: 10px;\n}\n#priority,\n#project,\n#priorityEdit,\n#projectList {\n  width: 195px;\n  height: 40px;\n  font-size: 25px;\n  border-radius: 10px;\n  margin: 10px;\n}\n#todo,\n#todoEdit {\n  width: 400px;\n}\n#description,\n#descriptionEdit {\n  height: 150px;\n  width: 400px;\n}\n.inputContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.project {\n  background-color: rgb(83, 78, 78);\n  flex-grow: 1;\n  border-radius: 10px;\n  padding: 10px;\n  margin: 10px;\n}\n.todo {\n  border: solid;\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  background-color: grey;\n  padding: 10px;\n  margin: 10px;\n  padding-right: 0;\n  border-radius: 10px;\n  width: 500px;\n  height: 50px;\n  display: flex;\n  justify-content: space-between;\n  padding: 10px;\n  box-shadow: 5px 5px 5px black;\n}\n.todo > button {\n  width: 70px;\n  height: 30px;\n  border-radius: 10px;\n  border: solid;\n}\n\n.buttonContainer > button {\n  margin: 2px;\n  background-color: darkgrey;\n  color: white;\n}\n.OptionColumn {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.low {\n  background-color: green;\n}\n.medium {\n  background-color: yellow;\n}\n.high {\n  background-color: red;\n}\n\n.projectsLabel {\n  font-size: 20px;\n}\n#urgent > i {\n  padding-left: 17px;\n  padding-right: 15px;\n}\n.titleContainer > h1 {\n  padding: 0;\n  margin: 0;\n  margin-right: 20px;\n  background-color: grey;\n}\n.titleContainer {\n  width: 90%;\n  display: flex;\n  justify-content: begin;\n  align-items: end;\n  border-bottom: solid;\n  margin-bottom: 0;\n  padding-bottom: 0;\n  background-color: grey;\n}\n.titleContainer > h4 {\n  padding: 0;\n  margin: 0;\n  margin-bottom: 2px;\n  background-color: grey;\n}\n.buttonContainer {\n  background-color: red;\n}\n.deleteButton {\n  background-color: red;\n  border-radius: 10px;\n  height: 30px;\n  border: solid;\n  margin: 5px;\n}\n.deleteButton:hover {\n  background-color: black;\n  color: red;\n  border: black;\n}\n.editButton {\n  border-radius: 10px;\n  height: 30px;\n  width: 60px;\n  padding: 0;\n  background-color: white;\n  border: solid;\n}\n.editButton:hover {\n  color: white;\n  background-color: black;\n  border: white;\n}\n.editTodo {\n  display: flex;\n  flex-direction: column;\n}\n/*\nedit container attributes\n*/\n#projectNameContainer {\n  background-color: white;\n  display: flex;\n  flex-direction: column;\n  padding-left: 30px;\n}\n.sideProjectContainer {\n  margin: 5px;\n  border: solid;\n  width: 170px;\n  display: flex;\n  justify-content: space-between;\n}\n.projectList:hover {\n  color: red;\n}\n.projectClassSidebar:hover {\n  color: grey;\n}\n.projectClassSidebar {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, `:root {
+  --colorA: rgba(169, 169, 169, 0.239);
+}
+
+button {
+  background-color: white;
+  border: none;
+  height: 50px;
+  font-size: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#sidebar > button:hover {
+  background-color: var(--colorA);
+  border-radius: 10px;
+}
+
+body {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  font-family: "Oswald", sans-serif;
+}
+
+header {
+  background-color: var(--colorA);
+  display: flex;
+  padding: 10px;
+}
+
+.menuBttnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menuBttn {
+  background-color: var(--colorA);
+  border-radius: 10px;
+}
+
+.main {
+  flex-grow: 0.97;
+  background-color: var(--colorA);
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+}
+
+footer {
+  flex-grow: 0.03;
+  background-color: var(--colorA);
+}
+
+#sidebar {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 300px;
+  max-width: 300px;
+  min-width: 300px;
+  padding-left: 50px;
+}
+
+i {
+  padding: 10px;
+}
+
+.projectContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+  flex-grow: 0.8;
+  align-items: center;
+}
+
+.projectContainerTop {
+  background-color: grey;
+  height: 200px;
+  max-height: 100px;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.projectContainerBottom {
+  background-color: orange;
+  height: 100px;
+}
+
+.projectContainerMid {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: auto;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.projectContainerMid::-webkit-scrollbar {
+  display: none;
+}
+
+.projectContainerSides {
+  flex-grow: 0.4;
+  background-color: grey;
+}
+
+.getInfo {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 200px;
+  border: solid black 5px;
+  border-radius: 20px;
+  left: 40%;
+  top: -10%;
+  transform: translate(0%, -40%) scale(0.1);
+  transition: 0.4s, top 0.4s;
+  position: fixed;
+  visibility: hidden;
+}
+
+.getInfoButtonContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.getInfoButtonContainer > button:hover {
+  color: white;
+  background-color: black;
+}
+
+.formButton {
+  border-radius: 20px;
+  width: 100px;
+  height: 30px;
+  margin: 5px;
+  border: solid;
+}
+
+.getInfo > #name {
+  width: 200px;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.getInfoTodo {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 600px;
+  border: solid black 5px;
+  border-radius: 20px;
+  left: 40%;
+  top: -10%;
+  transform: translate(0%, -40%) scale(0.1);
+  transition: 0.4s, top 0.4s;
+  position: fixed;
+  visibility: hidden;
+  font-size: 20px;
+}
+
+#todoInfo > input,
+#todoInfo > textarea {
+  width: 200px;
+}
+
+.dropdownMenus {
+  display: flex;
+  margin: 0;
+}
+
+.getInfoVisible {
+  visibility: visible;
+  transform: translate(0, 0) scale(1);
+  left: 41%;
+  top: 30%;
+}
+
+#name,
+#todo,
+#title,
+#dueDate,
+#todoEdit,
+#description,
+#descriptionEdit,
+#dueDateEdit {
+  height: 40px;
+  width: 400px;
+  font-size: 25px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+#priority,
+#project,
+#priorityEdit,
+#projectList {
+  width: 195px;
+  height: 40px;
+  font-size: 25px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+#todo,
+#todoEdit {
+  width: 400px;
+}
+
+#description,
+#descriptionEdit {
+  height: 150px;
+  width: 400px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project {
+  background-color: rgb(83, 78, 78);
+  flex-grow: 1;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.todo {
+  border: solid;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: grey;
+  padding: 10px;
+  margin: 10px;
+  padding-right: 0;
+  border-radius: 10px;
+  width: 500px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  box-shadow: 5px 5px 5px black;
+}
+
+.todo > button {
+  width: 70px;
+  height: 30px;
+  border-radius: 10px;
+  border: solid;
+}
+
+.buttonContainer > button {
+  margin: 2px;
+  background-color: darkgrey;
+  color: white;
+}
+
+.OptionColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.low {
+  background-color: green;
+}
+
+.medium {
+  background-color: yellow;
+}
+
+.high {
+  background-color: red;
+}
+
+.projectsLabel {
+  font-size: 20px;
+}
+
+#urgent > i {
+  padding-left: 17px;
+  padding-right: 15px;
+}
+
+.titleContainer > h1 {
+  padding: 0;
+  margin: 0;
+  margin-right: 20px;
+  background-color: grey;
+}
+
+.titleContainer {
+  width: 90%;
+  display: flex;
+  justify-content: begin;
+  align-items: end;
+  border-bottom: solid;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  background-color: grey;
+}
+
+.titleContainer > h4 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 2px;
+  background-color: grey;
+}
+
+.buttonContainer {
+  background-color: red;
+}
+
+.deleteButton {
+  background-color: red;
+  border-radius: 10px;
+  height: 30px;
+  border: solid;
+  margin: 5px;
+}
+
+.deleteButton:hover {
+  background-color: black;
+  color: red;
+  border: black;
+}
+
+.editButton {
+  border-radius: 10px;
+  height: 30px;
+  width: 60px;
+  padding: 0;
+  background-color: white;
+  border: solid;
+}
+
+.editButton:hover {
+  color: white;
+  background-color: black;
+  border: white;
+}
+
+.editTodo {
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+edit container attributes
+*/
+#projectNameContainer {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+}
+
+.sideProjectContainer {
+  margin: 5px;
+  border: solid;
+  width: 170px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.projectList:hover {
+  color: red;
+}
+
+.projectClassSidebar:hover {
+  color: grey;
+}
+
+.projectClassSidebar {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.css"],"names":[],"mappings":"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","sourcesContent":[":root {\n  --colorA: rgba(169, 169, 169, 0.239);\n}\nbutton {\n  background-color: white;\n  border: none;\n  height: 50px;\n  font-size: 20px;\n  padding-right: 20px;\n  padding-left: 20px;\n  margin-left: 0;\n  margin-right: 0;\n}\n#sidebar > button:hover {\n  background-color: var(--colorA);\n  border-radius: 10px;\n}\nbody {\n  background-color: black;\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  width: 100vw;\n  font-family: \"Oswald\", sans-serif;\n}\nheader {\n  background-color: var(--colorA);\n  display: flex;\n  padding: 10px;\n}\n.menuBttnContainer {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.menuBttn {\n  background-color: var(--colorA);\n  border-radius: 10px;\n}\n\n.main {\n  flex-grow: 0.97;\n  background-color: var(--colorA);\n  height: 30px;\n  display: flex;\n  flex-direction: row;\n}\nfooter {\n  flex-grow: 0.03;\n  background-color: var(--colorA);\n}\n\n#sidebar {\n  background-color: white;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  width: 300px;\n  max-width: 300px;\n  min-width: 300px;\n  padding-left: 50px;\n}\n\ni {\n  padding: 10px;\n}\n.projectContainer {\n  display: flex;\n  flex-direction: column;\n  background-color: grey;\n  flex-grow: 0.8;\n  align-items: center;\n}\n\n.projectContainerTop {\n  background-color: grey;\n  height: 200px;\n  max-height: 100px;\n  width: 400px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-bottom: 10px;\n}\n.projectContainerBottom {\n  background-color: orange;\n  height: 100px;\n}\n.projectContainerMid {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  padding: 20px;\n  overflow: auto;\n  align-items: center;\n  border-radius: 10px;\n}\n.projectContainerMid::-webkit-scrollbar {\n  display: none;\n}\n.projectContainerSides {\n  flex-grow: 0.4;\n  background-color: grey;\n}\n.getInfo {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 400px;\n  height: 200px;\n  border: solid black 5px;\n  border-radius: 20px;\n  left: 40%;\n  top: -10%;\n  transform: translate(0%, -40%) scale(0.1);\n  transition: 0.4s, top 0.4s;\n  position: fixed;\n  visibility: hidden;\n}\n.getInfoButtonContainer {\n  display: flex;\n  flex-direction: row;\n}\n.getInfoButtonContainer > button:hover {\n  color: white;\n  background-color: black;\n}\n.formButton {\n  border-radius: 20px;\n  width: 100px;\n  height: 30px;\n  margin: 5px;\n  border: solid;\n}\n.getInfo > #name {\n  width: 200px;\n  height: 40px;\n  margin-bottom: 20px;\n}\n.getInfoTodo {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 500px;\n  height: 600px;\n  border: solid black 5px;\n  border-radius: 20px;\n  left: 40%;\n  top: -10%;\n  transform: translate(0%, -40%) scale(0.1);\n  transition: 0.4s, top 0.4s;\n  position: fixed;\n  visibility: hidden;\n  font-size: 20px;\n}\n#todoInfo > input,\n#todoInfo > textarea {\n  width: 200px;\n}\n.dropdownMenus {\n  display: flex;\n  margin: 0;\n}\n.getInfoVisible {\n  visibility: visible;\n  transform: translate(0, 0) scale(1);\n  left: 41%;\n  top: 30%;\n}\n\n#name,\n#todo,\n#title,\n#dueDate,\n#todoEdit,\n#description,\n#descriptionEdit,\n#dueDateEdit {\n  height: 40px;\n  width: 400px;\n  font-size: 25px;\n  border-radius: 10px;\n  margin: 10px;\n}\n#priority,\n#project,\n#priorityEdit,\n#projectList {\n  width: 195px;\n  height: 40px;\n  font-size: 25px;\n  border-radius: 10px;\n  margin: 10px;\n}\n#todo,\n#todoEdit {\n  width: 400px;\n}\n#description,\n#descriptionEdit {\n  height: 150px;\n  width: 400px;\n}\n.inputContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.project {\n  background-color: rgb(83, 78, 78);\n  flex-grow: 1;\n  border-radius: 10px;\n  padding: 10px;\n  margin: 10px;\n}\n.todo {\n  border: solid;\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  background-color: grey;\n  padding: 10px;\n  margin: 10px;\n  padding-right: 0;\n  border-radius: 10px;\n  width: 500px;\n  height: 50px;\n  display: flex;\n  justify-content: space-between;\n  padding: 10px;\n  box-shadow: 5px 5px 5px black;\n}\n.todo > button {\n  width: 70px;\n  height: 30px;\n  border-radius: 10px;\n  border: solid;\n}\n\n.buttonContainer > button {\n  margin: 2px;\n  background-color: darkgrey;\n  color: white;\n}\n.OptionColumn {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.low {\n  background-color: green;\n}\n.medium {\n  background-color: yellow;\n}\n.high {\n  background-color: red;\n}\n\n.projectsLabel {\n  font-size: 20px;\n}\n#urgent > i {\n  padding-left: 17px;\n  padding-right: 15px;\n}\n.titleContainer > h1 {\n  padding: 0;\n  margin: 0;\n  margin-right: 20px;\n  background-color: grey;\n}\n.titleContainer {\n  width: 90%;\n  display: flex;\n  justify-content: begin;\n  align-items: end;\n  border-bottom: solid;\n  margin-bottom: 0;\n  padding-bottom: 0;\n  background-color: grey;\n}\n.titleContainer > h4 {\n  padding: 0;\n  margin: 0;\n  margin-bottom: 2px;\n  background-color: grey;\n}\n.buttonContainer {\n  background-color: red;\n}\n.deleteButton {\n  background-color: red;\n  border-radius: 10px;\n  height: 30px;\n  border: solid;\n  margin: 5px;\n}\n.deleteButton:hover {\n  background-color: black;\n  color: red;\n  border: black;\n}\n.editButton {\n  border-radius: 10px;\n  height: 30px;\n  width: 60px;\n  padding: 0;\n  background-color: white;\n  border: solid;\n}\n.editButton:hover {\n  color: white;\n  background-color: black;\n  border: white;\n}\n.editTodo {\n  display: flex;\n  flex-direction: column;\n}\n/*\nedit container attributes\n*/\n#projectNameContainer {\n  background-color: white;\n  display: flex;\n  flex-direction: column;\n  padding-left: 30px;\n}\n.sideProjectContainer {\n  margin: 5px;\n  border: solid;\n  width: 170px;\n  display: flex;\n  justify-content: space-between;\n}\n.projectList:hover {\n  color: red;\n}\n.projectClassSidebar:hover {\n  color: grey;\n}\n.projectClassSidebar {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -285,8 +681,8 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getDefaultOptions": () => (/* binding */ getDefaultOptions),
-/* harmony export */   "setDefaultOptions": () => (/* binding */ setDefaultOptions)
+/* harmony export */   getDefaultOptions: () => (/* binding */ getDefaultOptions),
+/* harmony export */   setDefaultOptions: () => (/* binding */ setDefaultOptions)
 /* harmony export */ });
 var defaultOptions = {};
 function getDefaultOptions() {
@@ -1496,9 +1892,9 @@ function getUTCWeekYear(dirtyDate, options) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isProtectedDayOfYearToken": () => (/* binding */ isProtectedDayOfYearToken),
-/* harmony export */   "isProtectedWeekYearToken": () => (/* binding */ isProtectedWeekYearToken),
-/* harmony export */   "throwProtectedError": () => (/* binding */ throwProtectedError)
+/* harmony export */   isProtectedDayOfYearToken: () => (/* binding */ isProtectedDayOfYearToken),
+/* harmony export */   isProtectedWeekYearToken: () => (/* binding */ isProtectedWeekYearToken),
+/* harmony export */   throwProtectedError: () => (/* binding */ throwProtectedError)
 /* harmony export */ });
 var protectedDayOfYearTokens = ['D', 'DD'];
 var protectedWeekYearTokens = ['YY', 'YYYY'];
@@ -3489,7 +3885,7 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "listOfProjects": () => (/* binding */ listOfProjects)
+/* harmony export */   listOfProjects: () => (/* binding */ listOfProjects)
 /* harmony export */ });
 /* harmony import */ var _styles_main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.css */ "./src/styles/main.css");
 /* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/format/index.js");
@@ -3983,4 +4379,4 @@ function editButtonFunc() {
 
 /******/ })()
 ;
-//# sourceMappingURL=maina4ec52603a7f495640ae.js.map
+//# sourceMappingURL=main153a34ab0b4c96aa49db.js.map

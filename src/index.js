@@ -2,19 +2,13 @@ import "./styles/main.css";
 import { format, compareAsc } from "date-fns";
 import { sortByDates } from "./importFunc";
 import { editContainer } from "./dom";
+import { RunEventListeners, form, dropDownProject } from "./eventListener";
 //dom elements
 const projectContainerMid = document.getElementById("projectContainerMid");
 const projectContainerTop = document.getElementById("projectContainerTop");
 const titleContainer = document.getElementById("titleContainer");
-const sideMenu = document.getElementById("sidebar");
-const menuBttn = document.getElementById("menuBttn");
-const addProject = document.getElementById("addProject");
 const getInfo = document.getElementById("getInfo");
-const submitProjectNew = document.getElementById("submitNewProject");
-const projectName = document.getElementById("name");
 const projectNameContainer = document.getElementById("projectNameContainer");
-const viewProjectsButton = document.querySelector(".viewProjects");
-const viewProjectsIcon = document.querySelector(".viewProjects i");
 
 //class for project
 const projectFactory = (name) => {
@@ -23,119 +17,35 @@ const projectFactory = (name) => {
 };
 
 //class for item in project
-const itemFactory = (project, title, description, dueDate, priority) => {
-  return { project, title, description, dueDate, priority };
+const itemFactory = (
+  project,
+  title,
+  description,
+  dueDate,
+  priority,
+  completed
+) => {
+  return { project, title, description, dueDate, priority, completed };
 };
 
 //initialize project array
-export let listOfProjects = [];
-
+let listOfProjects = [];
+let openEdit = {
+  value: false,
+};
+let currentView = {
+  value: "all",
+};
 //get info from local storage and add to listOfProjects if it has not already been added
-let currentView = "all";
 localStorageAdd();
 todoController();
 dropDownProject();
+RunEventListeners();
 
-//menu reveal/hide
-menuBttn.addEventListener("click", function () {
-  if (sideMenu.style.display !== "none") {
-    sideMenu.style.display = "none";
-  } else {
-    sideMenu.style.display = "flex";
-  }
-});
-
-//add button event to add new project
-addProject.addEventListener("click", function () {
-  getInfo.classList.add("getInfoVisible");
-});
-
-//add button event to add project from the submit form
-submitProjectNew.addEventListener("click", function () {
-  if (projectName.value !== "") {
-    let tempProject = projectFactory(projectName.value);
-    projectName.value = "";
-    listOfProjects.push(tempProject);
-    let listString = JSON.stringify(listOfProjects);
-    localStorage.setItem("list", listString);
-    dropDownProject();
-    if (boolViewProjects === true) viewProjects();
-  }
-});
-//view all projects button events in sidebar
-let boolViewProjects = false;
-
-viewProjectsButton.addEventListener("click", () => {
-  if (boolViewProjects === false) {
-    projectNameContainer.innerHTML = "";
-    viewProjectsIcon.classList.toggle("fa-arrow-down-long");
-    viewProjectsIcon.classList.toggle("fa-arrow-right-long");
-    viewProjects();
-  } else {
-    projectNameContainer.innerHTML = "";
-    viewProjectsIcon.classList.toggle("fa-arrow-down-long");
-    viewProjectsIcon.classList.toggle("fa-arrow-right-long");
-  }
-  boolViewProjects === false
-    ? (boolViewProjects = true)
-    : (boolViewProjects = false);
-});
-//populate sidemenu with projects in projects array
-function viewProjects() {
-  projectNameContainer.innerHTML = "";
-  for (let x = 0; x < listOfProjects.length; x++) {
-    const projectContainer = document.createElement("div");
-    projectContainer.classList.add("sideProjectContainer");
-    const name = document.createElement("button");
-    name.classList.add("projectClassSidebar");
-    name.innerHTML = listOfProjects[x].name;
-    const delte = document.createElement("button");
-    delte.innerHTML = "X";
-    delte.classList.add("deleteProject");
-    delte.classList.add("projectList");
-    projectContainer.appendChild(name);
-    projectContainer.appendChild(delte);
-    projectNameContainer.appendChild(projectContainer);
-  }
-  projectDeleteEvents();
-  displayProject();
-}
-//delete project and update dom
-function projectDeleteEvents() {
-  const projectDeleteButtons = document.getElementsByClassName("deleteProject");
-  for (let x = 0; x < projectDeleteButtons.length; x++) {
-    projectDeleteButtons[x].addEventListener("click", () => {
-      const title = projectDeleteButtons[x].parentElement.firstChild.innerHTML;
-      deleteProject(title);
-    });
-  }
-}
-//display only items in chosen project using button
-function displayProject() {
-  const displayProject = document.getElementsByClassName("projectClassSidebar");
-  for (let x = 0; x < displayProject.length; x++) {
-    displayProject[x].addEventListener("click", () => {
-      const title = displayProject[x].parentElement.firstChild.innerHTML;
-      currentView = title;
-      todoController();
-    });
-  }
-}
-//populate list for todo form, allows users to choose from available projects to add todo to
-function dropDownProject() {
-  const projectDropdown = document.getElementById("project");
-  projectDropdown.innerHTML = "";
-  for (let x = 0; x < listOfProjects.length; x++) {
-    let choice = document.createElement("option");
-    choice.innerHTML = listOfProjects[x].name;
-    projectDropdown.appendChild(choice);
-  }
-}
 //delete project
 function deleteProject(title) {
   for (let x = 0; x < listOfProjects.length; x++) {
     if (listOfProjects[x].name === title) {
-      console.log(listOfProjects[x].name);
       listOfProjects.splice(x, 1);
       updateLocalStorage();
       todoController();
@@ -145,34 +55,7 @@ function deleteProject(title) {
     }
   }
 }
-//add events for todo button
-const addTodoSide = document.getElementById("addTodoSide");
-addTodoSide.addEventListener("click", () => {
-  const todoInfo = document.getElementById("todoInfo");
-  todoInfo.classList.add("getInfoVisible");
-});
-//add event listener for submit button for adding todo item
-const submitTodoButton = document.getElementById("submitTodo");
-submitTodoButton.addEventListener("click", () => {
-  checkForm() ? addTodo() : console.log("invalid entries");
-});
-//get all elements for form
-let form = {
-  priority: document.getElementById("priority"),
-  project: document.getElementById("project"),
-  todo: document.getElementById("todo"),
-  dueDate: document.getElementById("dueDate"),
-  description: document.getElementById("description"),
-};
-//check if todo form is filled out
-function checkForm() {
-  for (const x in form) {
-    if (form[x].value === "") {
-      return false;
-    }
-  }
-  return true;
-}
+
 //function to add todo elements to dom
 function addDateTitle() {
   let date = new Date();
@@ -199,24 +82,55 @@ function todoController() {
   projectContainerMid.innerHTML = "";
   projectContainerTop.innerHTML = "";
   titleContainer.innerHTML = "";
-  if (currentView === "today") {
+  if (currentView.value === "today") {
     addDateTitle();
     todayItems("today");
-  } else if (currentView === "all") {
+  } else if (currentView.value === "all") {
     addTitle("All Items");
     all();
-  } else if (currentView === "urgent") {
+  } else if (currentView.value === "urgent") {
     addTitle("Urgent Items");
     urgent();
-  } else if (currentView === "upcoming") {
+  } else if (currentView.value === "upcoming") {
     addTitle("Upcoming Items");
     upcoming();
   } else {
-    addTitle(currentView);
-    project(currentView);
+    addTitle(currentView.value);
+    project(currentView.value);
   }
   deleteButton();
   editButtonFunc();
+  checkmark();
+}
+//function to check if checkmark is checked to signify completed
+function checkmark() {
+  let checked;
+  let item;
+  const checkmarks = document.getElementsByClassName("checkbox");
+  for (let x = 0; x < checkmarks.length; x++) {
+    checkmarks[x].addEventListener("change", () => {
+      if (checkmarks[x].checked) {
+        checked = true;
+      } else {
+        checked = false;
+      }
+      let title =
+        checkmarks[x].parentElement.parentElement.getElementsByClassName(
+          "title"
+        )[0].innerHTML;
+      for (let x = 0; x < listOfProjects.length; x++) {
+        for (let y = 0; y < listOfProjects[x].items.length; y++) {
+          if (listOfProjects[x].items[y].title === title) {
+            listOfProjects[x].items[y].completed = checked;
+            console.log(listOfProjects[x].items[y].completed);
+            item = listOfProjects[x].items[y];
+            updateLocalStorage();
+            todoController();
+          }
+        }
+      }
+    });
+  }
 }
 //function to display upcoming items
 function upcoming() {
@@ -259,6 +173,7 @@ function all() {
   }
   const todos = sortByDates(tempTodoContainer);
   for (let x = 0; x < todos.length; x++) {
+    console.log(todos[x]);
     createTodoDiv(todos[x]);
   }
 }
@@ -281,17 +196,28 @@ function todayItems(choice) {
 }
 //creates todo div etc. and adds it to dom
 function createTodoDiv(object) {
+  const checkBox = document.createElement("input");
+  checkBox.type = "checkbox";
+
   const todoContainer = document.createElement("div");
   todoContainer.classList.add("todo");
+
   const title = document.createElement("div");
   title.classList.add("title");
   title.innerHTML = object.title;
 
+  checkBox.classList.add("checkbox");
   const dueDate = document.createElement("div");
   dueDate.innerHTML = object.dueDate;
 
-  todoContainer.appendChild(dueDate);
+  const dateCheckbox = document.createElement("div");
+  dateCheckbox.classList.add("dateCheckbox");
+  dateCheckbox.appendChild(checkBox);
+  dateCheckbox.appendChild(dueDate);
+
+  todoContainer.appendChild(dateCheckbox);
   todoContainer.appendChild(title);
+
   const buttonContainer = document.createElement("div");
   const editButton = document.createElement("button");
   const deleteButton = document.createElement("button");
@@ -305,7 +231,14 @@ function createTodoDiv(object) {
   buttonContainer.appendChild(deleteButton);
 
   todoContainer.appendChild(buttonContainer);
-
+  if (object.completed === true) {
+    dueDate.classList.add("strike");
+    title.classList.add("strike");
+    checkBox.checked = true;
+    todoContainer.classList.add("backgroundChecked");
+  }
+  if (object.completed === true) {
+  }
   if (object.priority === "low") {
     todoContainer.classList.add("low");
   } else if (object.priority === "medium") {
@@ -324,7 +257,8 @@ function addTodo() {
     form.todo.value,
     form.description.value,
     format(new Date(inputDate), "MM/d/yyyy"),
-    form.priority.value
+    form.priority.value,
+    false
   );
 
   //finding project in array of projects and add todo to it
@@ -358,82 +292,6 @@ function localStorageAdd() {
   }
 }
 
-//today add event button. will add click event that displays all events due today
-const todayButton = document.getElementById("today");
-todayButton.addEventListener("click", () => {
-  currentView = "today";
-  todoController();
-});
-//future button, displays all items that are in the future
-const upcomingButton = document.getElementById("upcoming");
-upcomingButton.addEventListener("click", () => {
-  currentView = "upcoming";
-  todoController();
-});
-//main menu button
-const mainMenu = document.getElementById("main");
-mainMenu.addEventListener("click", () => {
-  currentView = "all";
-  todoController();
-});
-//urgent button, displays all the todos with high priority
-const urgentButton = document.getElementById("urgent");
-urgentButton.addEventListener("click", () => {
-  currentView = "urgent";
-  todoController();
-});
-
-//exit out of todo form
-const exitButtonTodo = document.getElementById("exitButton");
-exitButtonTodo.addEventListener("click", () => {
-  todoInfo.classList.remove("getInfoVisible");
-});
-//exit button for project form
-const projectExit = document.getElementById("exitButtonProject");
-projectExit.addEventListener("click", () => {
-  getInfo.classList.remove("getInfoVisible");
-});
-
-//submit button for edit form
-function editButtonEvents(x, y) {
-  const editSubmitButton = document.getElementsByClassName("editSubmitButton");
-  for (let q = 0; q < editSubmitButton.length; q++) {
-    editSubmitButton[q].addEventListener("click", () => {
-      openEdit = false;
-      const editedTodo = itemFactory(
-        document.getElementById("projectList").value,
-        document.getElementById("todoEdit").value,
-        document.getElementById("descriptionEdit").value,
-        format(
-          new Date(
-            new Date(
-              document.getElementById("dueDateEdit").value.replace(/-/g, "/")
-            )
-          ),
-          "MM/d/yyyy"
-        ),
-        document.getElementById("priorityEdit").value
-      );
-      for (let z = 0; z < listOfProjects.length; z++) {
-        if (listOfProjects[z].name === editedTodo.project) {
-          listOfProjects[x].items.splice(y, 1);
-          listOfProjects[z].items.push(editedTodo);
-          updateLocalStorage();
-          todoController();
-          return;
-        }
-      }
-    });
-  }
-  const editCancelButton = document.getElementsByClassName("editCancelButton");
-  for (let x = 0; x < editCancelButton.length; x++) {
-    editCancelButton[x].addEventListener("click", () => {
-      openEdit = false;
-      todoController();
-    });
-  }
-}
-
 //delete todo
 function deleteButton() {
   const deleteTodo = document.getElementsByClassName("deleteButton");
@@ -457,12 +315,11 @@ function deleteButton() {
 }
 //function for edit button, will expand todo item and allow user to update the localstorage with new todo
 //value determines whether or not editor is allowed to open, only allowed if another editor is not already open
-let openEdit = false;
 function editButtonFunc() {
   const editTodo = document.getElementsByClassName("editButton");
   for (let x = 0; x < editTodo.length; x++) {
     editTodo[x].addEventListener("click", () => {
-      if (openEdit == false) {
+      if (openEdit.value == false) {
         const title =
           editTodo[x].parentElement.parentElement.getElementsByClassName(
             "title"
@@ -473,6 +330,8 @@ function editButtonFunc() {
             if (listOfProjects[x].items[y].title === title) {
               const outputX = x;
               const outputY = y;
+              console.log("open");
+
               editContainer(todoBox, outputX, outputY);
               updateLocalStorage();
               break;
@@ -498,3 +357,14 @@ function editButtonFunc() {
       priority.innerHTML = listOfProjects[x].items[y].priority;
             todoContainer.appendChild(priority);
       */
+//run event listeners
+export {
+  listOfProjects,
+  openEdit,
+  addTodo,
+  todoController,
+  itemFactory,
+  updateLocalStorage,
+  currentView,
+  projectFactory,
+};

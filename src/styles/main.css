@@ -219,6 +219,7 @@ i {
 }
 .todo {
   border: solid;
+  border-left: solid red 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -233,6 +234,7 @@ i {
   justify-content: space-between;
   padding: 10px;
   box-shadow: 5px 5px 5px black;
+  background-color: rgba(255, 255, 255, 0.519);
 }
 .todo > button {
   width: 70px;
@@ -252,13 +254,13 @@ i {
   align-items: center;
 }
 .low {
-  background-color: green;
+  border-left: green solid 20px;
 }
 .medium {
-  background-color: yellow;
+  border-left: yellow solid 20px;
 }
 .high {
-  background-color: red;
+  border-left: red solid 20px;
 }
 
 .projectsLabel {
@@ -347,4 +349,32 @@ edit container attributes
 .projectClassSidebar {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.dateCheckbox {
+  display: flex;
+  flex-direction: row;
+}
+.dateCheckbox > input[type="checkbox"] {
+  margin: 10px;
+  height: 25px;
+  width: 25px;
+  border-radius: 10px;
+  clip-path: circle(46% at 50% 50%);
+  outline: 5px solid #c00;
+}
+.dateCheckbox > div {
+  margin-top: 9px;
+}
+.priorityColor {
+  background-color: red;
+  width: 20px;
+  height: 100%;
+  padding: 0;
+}
+.strike {
+  text-decoration: line-through;
+}
+.backgroundChecked {
+  background-color: black;
+  color: white;
 }
