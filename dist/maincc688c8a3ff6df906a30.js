@@ -12,17 +12,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   editContainer: () => (/* binding */ editContainer)
 /* harmony export */ });
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index */ "./src/index.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/format/index.js");
+
+
 function editContainer(todoBox, x, y) {
   todoBox.style.height = "400px";
   todoBox.innerHTML = "";
   todoBox.classList.add("editTodo");
   var todo = document.createElement("input");
   todo.id = "todoEdit";
-  todo.value = listOfProjects[x].items[y].title;
+  todo.value = _index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects[x].items[y].title;
   var dueDate = document.createElement("input");
   dueDate.id = "dueDateEdit";
   dueDate.type = "date";
-  dueDate.valueAsDate = new Date(listOfProjects[x].items[y].dueDate);
+  dueDate.valueAsDate = new Date(_index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects[x].items[y].dueDate);
   var priority = document.createElement("select");
   priority.id = "priorityEdit";
   var choice1 = document.createElement("option");
@@ -34,20 +38,20 @@ function editContainer(todoBox, x, y) {
   priority.appendChild(choice1);
   priority.appendChild(choice2);
   priority.appendChild(choice3);
-  priority.value = listOfProjects[x].items[y].priority;
+  priority.value = _index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects[x].items[y].priority;
   var projectList = document.createElement("select");
   projectList.id = "projectList";
-  for (var _x = 0; _x < listOfProjects.length; _x++) {
+  for (var _x = 0; _x < _index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects.length; _x++) {
     var choice = document.createElement("option");
-    choice.innerHTML = listOfProjects[_x].name;
+    choice.innerHTML = _index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects[_x].name;
     projectList.appendChild(choice);
   }
-  projectList.value = listOfProjects[x].items[y].project;
+  projectList.value = _index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects[x].items[y].project;
   var descriptionEdit = document.createElement("textarea");
   descriptionEdit.id = "descriptionEdit";
   var editListTop = document.createElement("div");
   editListTop.classList.add("editListTop");
-  descriptionEdit.value = listOfProjects[x].items[y].description;
+  descriptionEdit.value = _index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects[x].items[y].description;
   editListTop.appendChild(priority);
   editListTop.appendChild(projectList);
   var submitButton = document.createElement("button");
@@ -68,7 +72,226 @@ function editContainer(todoBox, x, y) {
   todoBox.appendChild(descriptionEdit);
   todoBox.appendChild(buttonContainer);
   editButtonEvents(x, y);
-  openEdit = true;
+  _index__WEBPACK_IMPORTED_MODULE_0__.openEdit.value = true;
+}
+//submit button for edit form
+function editButtonEvents(x, y) {
+  var editSubmitButton = document.getElementsByClassName("editSubmitButton");
+  for (var q = 0; q < editSubmitButton.length; q++) {
+    editSubmitButton[q].addEventListener("click", function () {
+      _index__WEBPACK_IMPORTED_MODULE_0__.openEdit.value = false;
+      var editedTodo = (0,_index__WEBPACK_IMPORTED_MODULE_0__.itemFactory)(document.getElementById("projectList").value, document.getElementById("todoEdit").value, document.getElementById("descriptionEdit").value, (0,date_fns__WEBPACK_IMPORTED_MODULE_1__["default"])(new Date(new Date(document.getElementById("dueDateEdit").value.replace(/-/g, "/"))), "MM/d/yyyy"), document.getElementById("priorityEdit").value);
+      for (var z = 0; z < _index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects.length; z++) {
+        if (_index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects[z].name === editedTodo.project) {
+          _index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects[x].items.splice(y, 1);
+          _index__WEBPACK_IMPORTED_MODULE_0__.listOfProjects[z].items.push(editedTodo);
+          (0,_index__WEBPACK_IMPORTED_MODULE_0__.updateLocalStorage)();
+          (0,_index__WEBPACK_IMPORTED_MODULE_0__.todoController)();
+          return;
+        }
+      }
+    });
+  }
+  var editCancelButton = document.getElementsByClassName("editCancelButton");
+  for (var _x2 = 0; _x2 < editCancelButton.length; _x2++) {
+    editCancelButton[_x2].addEventListener("click", function () {
+      _index__WEBPACK_IMPORTED_MODULE_0__.openEdit.value = false;
+      (0,_index__WEBPACK_IMPORTED_MODULE_0__.todoController)();
+    });
+  }
+}
+
+
+/***/ }),
+
+/***/ "./src/eventListener.js":
+/*!******************************!*\
+  !*** ./src/eventListener.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   RunEventListeners: () => (/* binding */ RunEventListeners),
+/* harmony export */   dropDownProject: () => (/* binding */ dropDownProject),
+/* harmony export */   form: () => (/* binding */ form)
+/* harmony export */ });
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! . */ "./src/index.js");
+
+function RunEventListeners() {
+  //today add event button. will add click event that displays all events due today
+  var todayButton = document.getElementById("today");
+  todayButton.addEventListener("click", function () {
+    ___WEBPACK_IMPORTED_MODULE_0__.currentView.value = "today";
+    (0,___WEBPACK_IMPORTED_MODULE_0__.todoController)();
+  });
+  //future button, displays all items that are in the future
+  var upcomingButton = document.getElementById("upcoming");
+  upcomingButton.addEventListener("click", function () {
+    ___WEBPACK_IMPORTED_MODULE_0__.currentView.value = "upcoming";
+    (0,___WEBPACK_IMPORTED_MODULE_0__.todoController)();
+  });
+  //main menu button
+  var mainMenu = document.getElementById("main");
+  mainMenu.addEventListener("click", function () {
+    ___WEBPACK_IMPORTED_MODULE_0__.currentView.value = "all";
+    (0,___WEBPACK_IMPORTED_MODULE_0__.todoController)();
+  });
+  //urgent button, displays all the todos with high priority
+  var urgentButton = document.getElementById("urgent");
+  urgentButton.addEventListener("click", function () {
+    ___WEBPACK_IMPORTED_MODULE_0__.currentView.value = "urgent";
+    (0,___WEBPACK_IMPORTED_MODULE_0__.todoController)();
+  });
+
+  //exit out of todo form
+  var exitButtonTodo = document.getElementById("exitButton");
+  exitButtonTodo.addEventListener("click", function () {
+    todoInfo.classList.remove("getInfoVisible");
+  });
+  //exit button for project form
+  var projectExit = document.getElementById("exitButtonProject");
+  projectExit.addEventListener("click", function () {
+    getInfo.classList.remove("getInfoVisible");
+  });
+  var editCancelButton = document.getElementsByClassName("editCancelButton");
+  for (var x = 0; x < editCancelButton.length; x++) {
+    editCancelButton[x].addEventListener("click", function () {
+      openEdit.value = false;
+      (0,___WEBPACK_IMPORTED_MODULE_0__.todoController)();
+    });
+  }
+  //add button event to add new project
+  var addProject = document.getElementById("addProject");
+  addProject.addEventListener("click", function () {
+    getInfo.classList.add("getInfoVisible");
+  });
+  //add button event to add project from the submit form
+  var submitProjectNew = document.getElementById("submitNewProject");
+  submitProjectNew.addEventListener("click", function () {
+    if (projectName.value !== "") {
+      var tempProject = (0,___WEBPACK_IMPORTED_MODULE_0__.projectFactory)(projectName.value);
+      projectName.value = "";
+      ___WEBPACK_IMPORTED_MODULE_0__.listOfProjects.push(tempProject);
+      var listString = JSON.stringify(___WEBPACK_IMPORTED_MODULE_0__.listOfProjects);
+      localStorage.setItem("list", listString);
+      dropDownProject();
+      if (boolViewProjects === true) viewProjects();
+    }
+  });
+  //view all projects button events in sidebar
+  var boolViewProjects = false;
+  var viewProjectsIcon = document.querySelector(".viewProjects i");
+  var viewProjectsButton = document.querySelector(".viewProjects");
+  viewProjectsButton.addEventListener("click", function () {
+    if (boolViewProjects === false) {
+      projectNameContainer.innerHTML = "";
+      viewProjectsIcon.classList.toggle("fa-arrow-down-long");
+      viewProjectsIcon.classList.toggle("fa-arrow-right-long");
+      viewProjects();
+    } else {
+      projectNameContainer.innerHTML = "";
+      viewProjectsIcon.classList.toggle("fa-arrow-down-long");
+      viewProjectsIcon.classList.toggle("fa-arrow-right-long");
+    }
+    boolViewProjects === false ? boolViewProjects = true : boolViewProjects = false;
+  });
+  //menu reveal/hide
+  var menuBttn = document.getElementById("menuBttn");
+  var sideMenu = document.getElementById("sidebar");
+  menuBttn.addEventListener("click", function () {
+    if (sideMenu.style.display !== "none") {
+      sideMenu.style.display = "none";
+    } else {
+      sideMenu.style.display = "flex";
+    }
+  });
+  //add events for todo button
+  var addTodoSide = document.getElementById("addTodoSide");
+  addTodoSide.addEventListener("click", function () {
+    var todoInfo = document.getElementById("todoInfo");
+    todoInfo.classList.add("getInfoVisible");
+  });
+  //add event listener for submit button for adding todo item
+  var submitTodoButton = document.getElementById("submitTodo");
+  submitTodoButton.addEventListener("click", function () {
+    checkForm() ? (0,___WEBPACK_IMPORTED_MODULE_0__.addTodo)() : console.log("invalid entries");
+  });
+}
+//check if todo form is filled out
+function checkForm() {
+  for (var x in form) {
+    if (form[x].value === "") {
+      return false;
+    }
+  }
+  return true;
+}
+//get all elements for form
+var form = {
+  priority: document.getElementById("priority"),
+  project: document.getElementById("project"),
+  todo: document.getElementById("todo"),
+  dueDate: document.getElementById("dueDate"),
+  description: document.getElementById("description")
+};
+//populate sidemenu with projects in projects array
+function viewProjects() {
+  projectNameContainer.innerHTML = "";
+  for (var x = 0; x < ___WEBPACK_IMPORTED_MODULE_0__.listOfProjects.length; x++) {
+    var projectContainer = document.createElement("div");
+    projectContainer.classList.add("sideProjectContainer");
+    var name = document.createElement("button");
+    name.classList.add("projectClassSidebar");
+    name.innerHTML = ___WEBPACK_IMPORTED_MODULE_0__.listOfProjects[x].name;
+    var delte = document.createElement("button");
+    delte.innerHTML = "X";
+    delte.classList.add("deleteProject");
+    delte.classList.add("projectList");
+    projectContainer.appendChild(name);
+    projectContainer.appendChild(delte);
+    projectNameContainer.appendChild(projectContainer);
+  }
+  projectDeleteEvents();
+  displayProject();
+}
+//delete project and update dom
+function projectDeleteEvents() {
+  var projectDeleteButtons = document.getElementsByClassName("deleteProject");
+  var _loop = function _loop(x) {
+    projectDeleteButtons[x].addEventListener("click", function () {
+      var title = projectDeleteButtons[x].parentElement.firstChild.innerHTML;
+      deleteProject(title);
+    });
+  };
+  for (var x = 0; x < projectDeleteButtons.length; x++) {
+    _loop(x);
+  }
+}
+//display only items in chosen project using button
+var projectName = document.getElementById("name");
+function displayProject() {
+  var displayProject = document.getElementsByClassName("projectClassSidebar");
+  var _loop2 = function _loop2(x) {
+    displayProject[x].addEventListener("click", function () {
+      var title = displayProject[x].parentElement.firstChild.innerHTML;
+      ___WEBPACK_IMPORTED_MODULE_0__.currentView.value = title;
+      (0,___WEBPACK_IMPORTED_MODULE_0__.todoController)();
+    });
+  };
+  for (var x = 0; x < displayProject.length; x++) {
+    _loop2(x);
+  }
+}
+//populate list for todo form, allows users to choose from available projects to add todo to
+function dropDownProject() {
+  var projectDropdown = document.getElementById("project");
+  projectDropdown.innerHTML = "";
+  for (var x = 0; x < ___WEBPACK_IMPORTED_MODULE_0__.listOfProjects.length; x++) {
+    var choice = document.createElement("option");
+    choice.innerHTML = ___WEBPACK_IMPORTED_MODULE_0__.listOfProjects[x].name;
+    projectDropdown.appendChild(choice);
+  }
 }
 
 
@@ -91,6 +314,374 @@ function sortByDates(input) {
   });
   return input;
 }
+
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addTodo: () => (/* binding */ addTodo),
+/* harmony export */   currentView: () => (/* binding */ currentView),
+/* harmony export */   itemFactory: () => (/* binding */ itemFactory),
+/* harmony export */   listOfProjects: () => (/* binding */ listOfProjects),
+/* harmony export */   openEdit: () => (/* binding */ openEdit),
+/* harmony export */   projectFactory: () => (/* binding */ projectFactory),
+/* harmony export */   todoController: () => (/* binding */ todoController),
+/* harmony export */   updateLocalStorage: () => (/* binding */ updateLocalStorage)
+/* harmony export */ });
+/* harmony import */ var _styles_main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.css */ "./src/styles/main.css");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/format/index.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/compareAsc/index.js");
+/* harmony import */ var _importFunc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./importFunc */ "./src/importFunc.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dom */ "./src/dom.js");
+/* harmony import */ var _eventListener__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./eventListener */ "./src/eventListener.js");
+
+
+
+
+
+//dom elements
+var projectContainerMid = document.getElementById("projectContainerMid");
+var projectContainerTop = document.getElementById("projectContainerTop");
+var titleContainer = document.getElementById("titleContainer");
+var getInfo = document.getElementById("getInfo");
+var projectNameContainer = document.getElementById("projectNameContainer");
+
+//class for project
+var projectFactory = function projectFactory(name) {
+  var items = [];
+  return {
+    name: name,
+    items: items
+  };
+};
+
+//class for item in project
+var itemFactory = function itemFactory(project, title, description, dueDate, priority, completed) {
+  return {
+    project: project,
+    title: title,
+    description: description,
+    dueDate: dueDate,
+    priority: priority,
+    completed: completed
+  };
+};
+
+//initialize project array
+var listOfProjects = [];
+var openEdit = {
+  value: false
+};
+var currentView = {
+  value: "all"
+};
+//get info from local storage and add to listOfProjects if it has not already been added
+localStorageAdd();
+todoController();
+(0,_eventListener__WEBPACK_IMPORTED_MODULE_3__.dropDownProject)();
+(0,_eventListener__WEBPACK_IMPORTED_MODULE_3__.RunEventListeners)();
+
+//delete project
+function deleteProject(title) {
+  for (var x = 0; x < listOfProjects.length; x++) {
+    if (listOfProjects[x].name === title) {
+      listOfProjects.splice(x, 1);
+      updateLocalStorage();
+      todoController();
+      viewProjects();
+      (0,_eventListener__WEBPACK_IMPORTED_MODULE_3__.dropDownProject)();
+      break;
+    }
+  }
+}
+
+//function to add todo elements to dom
+function addDateTitle() {
+  var date = new Date();
+  date = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(new Date(), "P");
+  var today = document.createElement("h1");
+  var dateInfo = document.createElement("h4");
+  today.innerHTML = "Today   ";
+  dateInfo.innerHTML = date;
+  titleContainer.appendChild(today);
+  titleContainer.appendChild(dateInfo);
+  projectContainerTop.appendChild(titleContainer);
+}
+//add title to main container, showing which items are being shown
+function addTitle(title) {
+  var today = document.createElement("h1");
+  var dateInfo = document.createElement("h4");
+  today.innerHTML = title;
+  titleContainer.appendChild(today);
+  projectContainerTop.appendChild(titleContainer);
+}
+//sort each projects
+//controller for deciding which items are shown
+function todoController() {
+  projectContainerMid.innerHTML = "";
+  projectContainerTop.innerHTML = "";
+  titleContainer.innerHTML = "";
+  if (currentView.value === "today") {
+    addDateTitle();
+    todayItems("today");
+  } else if (currentView.value === "all") {
+    addTitle("All Items");
+    all();
+  } else if (currentView.value === "urgent") {
+    addTitle("Urgent Items");
+    urgent();
+  } else if (currentView.value === "upcoming") {
+    addTitle("Upcoming Items");
+    upcoming();
+  } else {
+    addTitle(currentView.value);
+    project(currentView.value);
+  }
+  deleteButton();
+  editButtonFunc();
+  checkmark();
+}
+//function to check if checkmark is checked to signify completed
+function checkmark() {
+  var checked;
+  var item;
+  var checkmarks = document.getElementsByClassName("checkbox");
+  var _loop = function _loop(x) {
+    checkmarks[x].addEventListener("change", function () {
+      if (checkmarks[x].checked) {
+        checked = true;
+      } else {
+        checked = false;
+      }
+      var title = checkmarks[x].parentElement.parentElement.getElementsByClassName("title")[0].innerHTML;
+      for (var _x = 0; _x < listOfProjects.length; _x++) {
+        for (var y = 0; y < listOfProjects[_x].items.length; y++) {
+          if (listOfProjects[_x].items[y].title === title) {
+            listOfProjects[_x].items[y].completed = checked;
+            console.log(listOfProjects[_x].items[y].completed);
+            item = listOfProjects[_x].items[y];
+            updateLocalStorage();
+            todoController();
+          }
+        }
+      }
+    });
+  };
+  for (var x = 0; x < checkmarks.length; x++) {
+    _loop(x);
+  }
+}
+//function to display upcoming items
+function upcoming() {
+  var today = new Date();
+  for (var x = 0; x < listOfProjects.length; x++) {
+    for (var y = 0; y < listOfProjects[x].items.length; y++) {
+      var tempDate = new Date(listOfProjects[x].items[y].dueDate);
+      if ((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(tempDate, today) === 1) {
+        createTodoDiv(listOfProjects[x].items[y]);
+      }
+    }
+  }
+}
+//function to get specific todos from single project
+function project(projTitle) {
+  for (var x = 0; x < listOfProjects.length; x++) {
+    for (var y = 0; y < listOfProjects[x].items.length; y++) {
+      if (listOfProjects[x].items[y].project === projTitle) {
+        createTodoDiv(listOfProjects[x].items[y]);
+      }
+    }
+  }
+}
+//function to filter and add only the high priority items to the dom
+function urgent() {
+  for (var x = 0; x < listOfProjects.length; x++) {
+    for (var y = 0; y < listOfProjects[x].items.length; y++) {
+      if (listOfProjects[x].items[y].priority === "high") createTodoDiv(listOfProjects[x].items[y]);
+    }
+  }
+}
+//add all todo items to container
+function all() {
+  var tempTodoContainer = [];
+  for (var x = 0; x < listOfProjects.length; x++) {
+    for (var y = 0; y < listOfProjects[x].items.length; y++) {
+      tempTodoContainer.push(listOfProjects[x].items[y]);
+    }
+  }
+  var todos = (0,_importFunc__WEBPACK_IMPORTED_MODULE_1__.sortByDates)(tempTodoContainer);
+  for (var _x2 = 0; _x2 < todos.length; _x2++) {
+    console.log(todos[_x2]);
+    createTodoDiv(todos[_x2]);
+  }
+}
+
+//add only todays items to container
+function todayItems(choice) {
+  for (var x = 0; x < listOfProjects.length; x++) {
+    for (var y = 0; y < listOfProjects[x].items.length; y++) {
+      var todoContainer = document.createElement("div");
+      todoContainer.classList.add("todo");
+      var todaysDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(new Date(), "MM/d/yyyy");
+      if (todaysDate === (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(new Date(listOfProjects[x].items[y].dueDate), "MM/d/yyyy")) {
+        createTodoDiv(listOfProjects[x].items[y]);
+      }
+    }
+  }
+}
+//creates todo div etc. and adds it to dom
+function createTodoDiv(object) {
+  var checkBox = document.createElement("input");
+  checkBox.type = "checkbox";
+  var todoContainer = document.createElement("div");
+  todoContainer.classList.add("todo");
+  var title = document.createElement("div");
+  title.classList.add("title");
+  title.innerHTML = object.title;
+  checkBox.classList.add("checkbox");
+  var dueDate = document.createElement("div");
+  dueDate.innerHTML = object.dueDate;
+  var dateCheckbox = document.createElement("div");
+  dateCheckbox.classList.add("dateCheckbox");
+  dateCheckbox.appendChild(checkBox);
+  dateCheckbox.appendChild(dueDate);
+  todoContainer.appendChild(dateCheckbox);
+  todoContainer.appendChild(title);
+  var buttonContainer = document.createElement("div");
+  var editButton = document.createElement("button");
+  var deleteButton = document.createElement("button");
+  editButton.innerHTML = "edit";
+  deleteButton.innerHTML = "X";
+  editButton.classList.add("editButton");
+  deleteButton.classList.add("deleteButton");
+  buttonContainer.appendChild(editButton);
+  buttonContainer.appendChild(deleteButton);
+  todoContainer.appendChild(buttonContainer);
+  if (object.completed === true) {
+    dueDate.classList.add("strike");
+    title.classList.add("strike");
+    checkBox.checked = true;
+    todoContainer.classList.add("backgroundChecked");
+  }
+  if (object.completed === true) {}
+  if (object.priority === "low") {
+    todoContainer.classList.add("low");
+  } else if (object.priority === "medium") {
+    todoContainer.classList.add("medium");
+  } else {
+    todoContainer.classList.add("high");
+  }
+  projectContainerMid.appendChild(todoContainer);
+}
+
+//add todo to chosen project
+function addTodo() {
+  var inputDate = new Date(_eventListener__WEBPACK_IMPORTED_MODULE_3__.form.dueDate.value.replace(/-/g, "/"));
+  var tempTodo = itemFactory(_eventListener__WEBPACK_IMPORTED_MODULE_3__.form.project.value, _eventListener__WEBPACK_IMPORTED_MODULE_3__.form.todo.value, _eventListener__WEBPACK_IMPORTED_MODULE_3__.form.description.value, (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(new Date(inputDate), "MM/d/yyyy"), _eventListener__WEBPACK_IMPORTED_MODULE_3__.form.priority.value, false);
+
+  //finding project in array of projects and add todo to it
+  for (var x = 0; x < listOfProjects.length; x++) {
+    if (listOfProjects[x].name === _eventListener__WEBPACK_IMPORTED_MODULE_3__.form.project.value) {
+      listOfProjects[x].items.push(tempTodo);
+    }
+  }
+  var infoName = document.getElementById("description");
+  infoName.value = "";
+  var todoInfo = document.getElementById("todo");
+  todoInfo.value = "";
+  updateLocalStorage();
+  todoController();
+}
+//function to update local storage
+function updateLocalStorage() {
+  localStorage.setItem("list", JSON.stringify(listOfProjects));
+  var res = localStorage.getItem("list");
+  res = JSON.parse(res);
+  listOfProjects = res;
+}
+//function to initially load local storage list
+function localStorageAdd() {
+  if (!localStorage.getItem("list")) {
+    localStorage.setItem("list", JSON.stringify(listOfProjects));
+  } else {
+    var res = localStorage.getItem("list");
+    res = JSON.parse(res);
+    listOfProjects = res;
+  }
+}
+
+//delete todo
+function deleteButton() {
+  var deleteTodo = document.getElementsByClassName("deleteButton");
+  var _loop2 = function _loop2(x) {
+    deleteTodo[x].addEventListener("click", function () {
+      var title = deleteTodo[x].parentElement.parentElement.getElementsByClassName("title")[0].innerHTML;
+      for (var _x3 = 0; _x3 < listOfProjects.length; _x3++) {
+        for (var y = 0; y < listOfProjects[_x3].items.length; y++) {
+          if (listOfProjects[_x3].items[y].title === title) {
+            listOfProjects[_x3].items.splice(y, 1);
+            updateLocalStorage();
+            todoController();
+          }
+        }
+      }
+    });
+  };
+  for (var x = 0; x < deleteTodo.length; x++) {
+    _loop2(x);
+  }
+}
+//function for edit button, will expand todo item and allow user to update the localstorage with new todo
+//value determines whether or not editor is allowed to open, only allowed if another editor is not already open
+function editButtonFunc() {
+  var editTodo = document.getElementsByClassName("editButton");
+  var _loop3 = function _loop3(x) {
+    editTodo[x].addEventListener("click", function () {
+      if (openEdit.value == false) {
+        var title = editTodo[x].parentElement.parentElement.getElementsByClassName("title")[0].innerHTML;
+        var todoBox = editTodo[x].parentElement.parentElement;
+        for (var _x4 = 0; _x4 < listOfProjects.length; _x4++) {
+          for (var y = 0; y < listOfProjects[_x4].items.length; y++) {
+            if (listOfProjects[_x4].items[y].title === title) {
+              var outputX = _x4;
+              var outputY = y;
+              console.log("open");
+              (0,_dom__WEBPACK_IMPORTED_MODULE_2__.editContainer)(todoBox, outputX, outputY);
+              updateLocalStorage();
+              break;
+            }
+          }
+        }
+      }
+    });
+  };
+  for (var x = 0; x < editTodo.length; x++) {
+    _loop3(x);
+  }
+}
+
+//create elements for todo edit
+
+/*
+      const project = document.createElement("div");
+      project.innerHTML = listOfProjects[x].items[y].project;
+      todoContainer.appendChild(project);
+      const description = document.createElement("div");
+      description.innerHTML = listOfProjects[x].items[y].description;
+      todoContainer.appendChild(description);
+
+            const priority = document.createElement("div");
+      priority.innerHTML = listOfProjects[x].items[y].priority;
+            todoContainer.appendChild(priority);
+      */
+//run event listeners
 
 
 /***/ }),
@@ -220,6 +811,7 @@ i {
   overflow: auto;
   align-items: center;
   border-radius: 10px;
+  font-size: 25px;
 }
 
 .projectContainerMid::-webkit-scrollbar {
@@ -362,6 +954,7 @@ i {
 
 .todo {
   border: solid;
+  border-left: solid red 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -376,6 +969,7 @@ i {
   justify-content: space-between;
   padding: 10px;
   box-shadow: 5px 5px 5px black;
+  background-color: rgba(255, 255, 255, 0.519);
 }
 
 .todo > button {
@@ -398,15 +992,15 @@ i {
 }
 
 .low {
-  background-color: green;
+  border-left: green solid 20px;
 }
 
 .medium {
-  background-color: yellow;
+  border-left: yellow solid 20px;
 }
 
 .high {
-  background-color: red;
+  border-left: red solid 20px;
 }
 
 .projectsLabel {
@@ -510,7 +1104,41 @@ edit container attributes
 .projectClassSidebar {
   overflow: hidden;
   text-overflow: ellipsis;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.css"],"names":[],"mappings":"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","sourcesContent":[":root {\n  --colorA: rgba(169, 169, 169, 0.239);\n}\nbutton {\n  background-color: white;\n  border: none;\n  height: 50px;\n  font-size: 20px;\n  padding-right: 20px;\n  padding-left: 20px;\n  margin-left: 0;\n  margin-right: 0;\n}\n#sidebar > button:hover {\n  background-color: var(--colorA);\n  border-radius: 10px;\n}\nbody {\n  background-color: black;\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  width: 100vw;\n  font-family: \"Oswald\", sans-serif;\n}\nheader {\n  background-color: var(--colorA);\n  display: flex;\n  padding: 10px;\n}\n.menuBttnContainer {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.menuBttn {\n  background-color: var(--colorA);\n  border-radius: 10px;\n}\n\n.main {\n  flex-grow: 0.97;\n  background-color: var(--colorA);\n  height: 30px;\n  display: flex;\n  flex-direction: row;\n}\nfooter {\n  flex-grow: 0.03;\n  background-color: var(--colorA);\n}\n\n#sidebar {\n  background-color: white;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  width: 300px;\n  max-width: 300px;\n  min-width: 300px;\n  padding-left: 50px;\n}\n\ni {\n  padding: 10px;\n}\n.projectContainer {\n  display: flex;\n  flex-direction: column;\n  background-color: grey;\n  flex-grow: 0.8;\n  align-items: center;\n}\n\n.projectContainerTop {\n  background-color: grey;\n  height: 200px;\n  max-height: 100px;\n  width: 400px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-bottom: 10px;\n}\n.projectContainerBottom {\n  background-color: orange;\n  height: 100px;\n}\n.projectContainerMid {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  padding: 20px;\n  overflow: auto;\n  align-items: center;\n  border-radius: 10px;\n}\n.projectContainerMid::-webkit-scrollbar {\n  display: none;\n}\n.projectContainerSides {\n  flex-grow: 0.4;\n  background-color: grey;\n}\n.getInfo {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 400px;\n  height: 200px;\n  border: solid black 5px;\n  border-radius: 20px;\n  left: 40%;\n  top: -10%;\n  transform: translate(0%, -40%) scale(0.1);\n  transition: 0.4s, top 0.4s;\n  position: fixed;\n  visibility: hidden;\n}\n.getInfoButtonContainer {\n  display: flex;\n  flex-direction: row;\n}\n.getInfoButtonContainer > button:hover {\n  color: white;\n  background-color: black;\n}\n.formButton {\n  border-radius: 20px;\n  width: 100px;\n  height: 30px;\n  margin: 5px;\n  border: solid;\n}\n.getInfo > #name {\n  width: 200px;\n  height: 40px;\n  margin-bottom: 20px;\n}\n.getInfoTodo {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 500px;\n  height: 600px;\n  border: solid black 5px;\n  border-radius: 20px;\n  left: 40%;\n  top: -10%;\n  transform: translate(0%, -40%) scale(0.1);\n  transition: 0.4s, top 0.4s;\n  position: fixed;\n  visibility: hidden;\n  font-size: 20px;\n}\n#todoInfo > input,\n#todoInfo > textarea {\n  width: 200px;\n}\n.dropdownMenus {\n  display: flex;\n  margin: 0;\n}\n.getInfoVisible {\n  visibility: visible;\n  transform: translate(0, 0) scale(1);\n  left: 41%;\n  top: 30%;\n}\n\n#name,\n#todo,\n#title,\n#dueDate,\n#todoEdit,\n#description,\n#descriptionEdit,\n#dueDateEdit {\n  height: 40px;\n  width: 400px;\n  font-size: 25px;\n  border-radius: 10px;\n  margin: 10px;\n}\n#priority,\n#project,\n#priorityEdit,\n#projectList {\n  width: 195px;\n  height: 40px;\n  font-size: 25px;\n  border-radius: 10px;\n  margin: 10px;\n}\n#todo,\n#todoEdit {\n  width: 400px;\n}\n#description,\n#descriptionEdit {\n  height: 150px;\n  width: 400px;\n}\n.inputContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.project {\n  background-color: rgb(83, 78, 78);\n  flex-grow: 1;\n  border-radius: 10px;\n  padding: 10px;\n  margin: 10px;\n}\n.todo {\n  border: solid;\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  background-color: grey;\n  padding: 10px;\n  margin: 10px;\n  padding-right: 0;\n  border-radius: 10px;\n  width: 500px;\n  height: 50px;\n  display: flex;\n  justify-content: space-between;\n  padding: 10px;\n  box-shadow: 5px 5px 5px black;\n}\n.todo > button {\n  width: 70px;\n  height: 30px;\n  border-radius: 10px;\n  border: solid;\n}\n\n.buttonContainer > button {\n  margin: 2px;\n  background-color: darkgrey;\n  color: white;\n}\n.OptionColumn {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.low {\n  background-color: green;\n}\n.medium {\n  background-color: yellow;\n}\n.high {\n  background-color: red;\n}\n\n.projectsLabel {\n  font-size: 20px;\n}\n#urgent > i {\n  padding-left: 17px;\n  padding-right: 15px;\n}\n.titleContainer > h1 {\n  padding: 0;\n  margin: 0;\n  margin-right: 20px;\n  background-color: grey;\n}\n.titleContainer {\n  width: 90%;\n  display: flex;\n  justify-content: begin;\n  align-items: end;\n  border-bottom: solid;\n  margin-bottom: 0;\n  padding-bottom: 0;\n  background-color: grey;\n}\n.titleContainer > h4 {\n  padding: 0;\n  margin: 0;\n  margin-bottom: 2px;\n  background-color: grey;\n}\n.buttonContainer {\n  background-color: red;\n}\n.deleteButton {\n  background-color: red;\n  border-radius: 10px;\n  height: 30px;\n  border: solid;\n  margin: 5px;\n}\n.deleteButton:hover {\n  background-color: black;\n  color: red;\n  border: black;\n}\n.editButton {\n  border-radius: 10px;\n  height: 30px;\n  width: 60px;\n  padding: 0;\n  background-color: white;\n  border: solid;\n}\n.editButton:hover {\n  color: white;\n  background-color: black;\n  border: white;\n}\n.editTodo {\n  display: flex;\n  flex-direction: column;\n}\n/*\nedit container attributes\n*/\n#projectNameContainer {\n  background-color: white;\n  display: flex;\n  flex-direction: column;\n  padding-left: 30px;\n}\n.sideProjectContainer {\n  margin: 5px;\n  border: solid;\n  width: 170px;\n  display: flex;\n  justify-content: space-between;\n}\n.projectList:hover {\n  color: red;\n}\n.projectClassSidebar:hover {\n  color: grey;\n}\n.projectClassSidebar {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n"],"sourceRoot":""}]);
+}
+
+.dateCheckbox {
+  display: flex;
+  flex-direction: row;
+}
+
+.dateCheckbox > input[type=checkbox] {
+  margin: 10px;
+  height: 25px;
+  width: 25px;
+  border-radius: 10px;
+  clip-path: circle(46% at 50% 50%);
+  outline: 5px solid #c00;
+}
+
+.dateCheckbox > div {
+  margin-top: 3px;
+}
+
+.priorityColor {
+  background-color: red;
+  width: 20px;
+  height: 100%;
+  padding: 0;
+}
+
+.strike {
+  text-decoration: line-through;
+}
+
+.backgroundChecked {
+  background-color: black;
+  color: white;
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.css"],"names":[],"mappings":"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","sourcesContent":[":root {\n  --colorA: rgba(169, 169, 169, 0.239);\n}\nbutton {\n  background-color: white;\n  border: none;\n  height: 50px;\n  font-size: 20px;\n  padding-right: 20px;\n  padding-left: 20px;\n  margin-left: 0;\n  margin-right: 0;\n}\n#sidebar > button:hover {\n  background-color: var(--colorA);\n  border-radius: 10px;\n}\nbody {\n  background-color: black;\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  width: 100vw;\n  font-family: \"Oswald\", sans-serif;\n}\nheader {\n  background-color: var(--colorA);\n  display: flex;\n  padding: 10px;\n}\n.menuBttnContainer {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.menuBttn {\n  background-color: var(--colorA);\n  border-radius: 10px;\n}\n\n.main {\n  flex-grow: 0.97;\n  background-color: var(--colorA);\n  height: 30px;\n  display: flex;\n  flex-direction: row;\n}\nfooter {\n  flex-grow: 0.03;\n  background-color: var(--colorA);\n}\n\n#sidebar {\n  background-color: white;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  width: 300px;\n  max-width: 300px;\n  min-width: 300px;\n  padding-left: 50px;\n}\n\ni {\n  padding: 10px;\n}\n.projectContainer {\n  display: flex;\n  flex-direction: column;\n  background-color: grey;\n  flex-grow: 0.8;\n  align-items: center;\n}\n\n.projectContainerTop {\n  background-color: grey;\n  height: 200px;\n  max-height: 100px;\n  width: 400px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-bottom: 10px;\n}\n.projectContainerBottom {\n  background-color: orange;\n  height: 100px;\n}\n.projectContainerMid {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  padding: 20px;\n  overflow: auto;\n  align-items: center;\n  border-radius: 10px;\n  font-size: 25px;\n}\n.projectContainerMid::-webkit-scrollbar {\n  display: none;\n}\n.projectContainerSides {\n  flex-grow: 0.4;\n  background-color: grey;\n}\n.getInfo {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 400px;\n  height: 200px;\n  border: solid black 5px;\n  border-radius: 20px;\n  left: 40%;\n  top: -10%;\n  transform: translate(0%, -40%) scale(0.1);\n  transition: 0.4s, top 0.4s;\n  position: fixed;\n  visibility: hidden;\n}\n.getInfoButtonContainer {\n  display: flex;\n  flex-direction: row;\n}\n.getInfoButtonContainer > button:hover {\n  color: white;\n  background-color: black;\n}\n.formButton {\n  border-radius: 20px;\n  width: 100px;\n  height: 30px;\n  margin: 5px;\n  border: solid;\n}\n.getInfo > #name {\n  width: 200px;\n  height: 40px;\n  margin-bottom: 20px;\n}\n.getInfoTodo {\n  background-color: grey;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 500px;\n  height: 600px;\n  border: solid black 5px;\n  border-radius: 20px;\n  left: 40%;\n  top: -10%;\n  transform: translate(0%, -40%) scale(0.1);\n  transition: 0.4s, top 0.4s;\n  position: fixed;\n  visibility: hidden;\n  font-size: 20px;\n}\n#todoInfo > input,\n#todoInfo > textarea {\n  width: 200px;\n}\n.dropdownMenus {\n  display: flex;\n  margin: 0;\n}\n.getInfoVisible {\n  visibility: visible;\n  transform: translate(0, 0) scale(1);\n  left: 41%;\n  top: 30%;\n}\n\n#name,\n#todo,\n#title,\n#dueDate,\n#todoEdit,\n#description,\n#descriptionEdit,\n#dueDateEdit {\n  height: 40px;\n  width: 400px;\n  font-size: 25px;\n  border-radius: 10px;\n  margin: 10px;\n}\n#priority,\n#project,\n#priorityEdit,\n#projectList {\n  width: 195px;\n  height: 40px;\n  font-size: 25px;\n  border-radius: 10px;\n  margin: 10px;\n}\n#todo,\n#todoEdit {\n  width: 400px;\n}\n#description,\n#descriptionEdit {\n  height: 150px;\n  width: 400px;\n}\n.inputContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.project {\n  background-color: rgb(83, 78, 78);\n  flex-grow: 1;\n  border-radius: 10px;\n  padding: 10px;\n  margin: 10px;\n}\n.todo {\n  border: solid;\n  border-left: solid red 20px;\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  background-color: grey;\n  padding: 10px;\n  margin: 10px;\n  padding-right: 0;\n  border-radius: 10px;\n  width: 500px;\n  height: 50px;\n  display: flex;\n  justify-content: space-between;\n  padding: 10px;\n  box-shadow: 5px 5px 5px black;\n  background-color: rgba(255, 255, 255, 0.519);\n}\n.todo > button {\n  width: 70px;\n  height: 30px;\n  border-radius: 10px;\n  border: solid;\n}\n\n.buttonContainer > button {\n  margin: 2px;\n  background-color: darkgrey;\n  color: white;\n}\n.OptionColumn {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.low {\n  border-left: green solid 20px;\n}\n.medium {\n  border-left: yellow solid 20px;\n}\n.high {\n  border-left: red solid 20px;\n}\n\n.projectsLabel {\n  font-size: 20px;\n}\n#urgent > i {\n  padding-left: 17px;\n  padding-right: 15px;\n}\n.titleContainer > h1 {\n  padding: 0;\n  margin: 0;\n  margin-right: 20px;\n  background-color: grey;\n}\n.titleContainer {\n  width: 90%;\n  display: flex;\n  justify-content: begin;\n  align-items: end;\n  border-bottom: solid;\n  margin-bottom: 0;\n  padding-bottom: 0;\n  background-color: grey;\n}\n.titleContainer > h4 {\n  padding: 0;\n  margin: 0;\n  margin-bottom: 2px;\n  background-color: grey;\n}\n.buttonContainer {\n  background-color: red;\n}\n.deleteButton {\n  background-color: red;\n  border-radius: 10px;\n  height: 30px;\n  border: solid;\n  margin: 5px;\n}\n.deleteButton:hover {\n  background-color: black;\n  color: red;\n  border: black;\n}\n.editButton {\n  border-radius: 10px;\n  height: 30px;\n  width: 60px;\n  padding: 0;\n  background-color: white;\n  border: solid;\n}\n.editButton:hover {\n  color: white;\n  background-color: black;\n  border: white;\n}\n.editTodo {\n  display: flex;\n  flex-direction: column;\n}\n/*\nedit container attributes\n*/\n#projectNameContainer {\n  background-color: white;\n  display: flex;\n  flex-direction: column;\n  padding-left: 30px;\n}\n.sideProjectContainer {\n  margin: 5px;\n  border: solid;\n  width: 170px;\n  display: flex;\n  justify-content: space-between;\n}\n.projectList:hover {\n  color: red;\n}\n.projectClassSidebar:hover {\n  color: grey;\n}\n.projectClassSidebar {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dateCheckbox {\n  display: flex;\n  flex-direction: row;\n}\n.dateCheckbox > input[type=\"checkbox\"] {\n  margin: 10px;\n  height: 25px;\n  width: 25px;\n  border-radius: 10px;\n  clip-path: circle(46% at 50% 50%);\n  outline: 5px solid #c00;\n}\n.dateCheckbox > div {\n  margin-top: 3px;\n}\n.priorityColor {\n  background-color: red;\n  width: 20px;\n  height: 100%;\n  padding: 0;\n}\n.strike {\n  text-decoration: line-through;\n}\n.backgroundChecked {\n  background-color: black;\n  color: white;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3877,506 +4505,12 @@ function _typeof(obj) {
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   listOfProjects: () => (/* binding */ listOfProjects)
-/* harmony export */ });
-/* harmony import */ var _styles_main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.css */ "./src/styles/main.css");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/format/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/compareAsc/index.js");
-/* harmony import */ var _importFunc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./importFunc */ "./src/importFunc.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dom */ "./src/dom.js");
-
-
-
-
-//dom elements
-var projectContainerMid = document.getElementById("projectContainerMid");
-var projectContainerTop = document.getElementById("projectContainerTop");
-var titleContainer = document.getElementById("titleContainer");
-var sideMenu = document.getElementById("sidebar");
-var menuBttn = document.getElementById("menuBttn");
-var addProject = document.getElementById("addProject");
-var getInfo = document.getElementById("getInfo");
-var submitProjectNew = document.getElementById("submitNewProject");
-var projectName = document.getElementById("name");
-var projectNameContainer = document.getElementById("projectNameContainer");
-var viewProjectsButton = document.querySelector(".viewProjects");
-var viewProjectsIcon = document.querySelector(".viewProjects i");
-
-//class for project
-var projectFactory = function projectFactory(name) {
-  var items = [];
-  return {
-    name: name,
-    items: items
-  };
-};
-
-//class for item in project
-var itemFactory = function itemFactory(project, title, description, dueDate, priority) {
-  return {
-    project: project,
-    title: title,
-    description: description,
-    dueDate: dueDate,
-    priority: priority
-  };
-};
-
-//initialize project array
-var listOfProjects = [];
-
-//get info from local storage and add to listOfProjects if it has not already been added
-var currentView = "all";
-localStorageAdd();
-todoController();
-dropDownProject();
-
-//menu reveal/hide
-menuBttn.addEventListener("click", function () {
-  if (sideMenu.style.display !== "none") {
-    sideMenu.style.display = "none";
-  } else {
-    sideMenu.style.display = "flex";
-  }
-});
-
-//add button event to add new project
-addProject.addEventListener("click", function () {
-  getInfo.classList.add("getInfoVisible");
-});
-
-//add button event to add project from the submit form
-submitProjectNew.addEventListener("click", function () {
-  if (projectName.value !== "") {
-    var tempProject = projectFactory(projectName.value);
-    projectName.value = "";
-    listOfProjects.push(tempProject);
-    var listString = JSON.stringify(listOfProjects);
-    localStorage.setItem("list", listString);
-    dropDownProject();
-    if (boolViewProjects === true) viewProjects();
-  }
-});
-//view all projects button events in sidebar
-var boolViewProjects = false;
-viewProjectsButton.addEventListener("click", function () {
-  if (boolViewProjects === false) {
-    projectNameContainer.innerHTML = "";
-    viewProjectsIcon.classList.toggle("fa-arrow-down-long");
-    viewProjectsIcon.classList.toggle("fa-arrow-right-long");
-    viewProjects();
-  } else {
-    projectNameContainer.innerHTML = "";
-    viewProjectsIcon.classList.toggle("fa-arrow-down-long");
-    viewProjectsIcon.classList.toggle("fa-arrow-right-long");
-  }
-  boolViewProjects === false ? boolViewProjects = true : boolViewProjects = false;
-});
-//populate sidemenu with projects in projects array
-function viewProjects() {
-  projectNameContainer.innerHTML = "";
-  for (var x = 0; x < listOfProjects.length; x++) {
-    var projectContainer = document.createElement("div");
-    projectContainer.classList.add("sideProjectContainer");
-    var name = document.createElement("button");
-    name.classList.add("projectClassSidebar");
-    name.innerHTML = listOfProjects[x].name;
-    var delte = document.createElement("button");
-    delte.innerHTML = "X";
-    delte.classList.add("deleteProject");
-    delte.classList.add("projectList");
-    projectContainer.appendChild(name);
-    projectContainer.appendChild(delte);
-    projectNameContainer.appendChild(projectContainer);
-  }
-  projectDeleteEvents();
-  displayProject();
-}
-//delete project and update dom
-function projectDeleteEvents() {
-  var projectDeleteButtons = document.getElementsByClassName("deleteProject");
-  var _loop = function _loop(x) {
-    projectDeleteButtons[x].addEventListener("click", function () {
-      var title = projectDeleteButtons[x].parentElement.firstChild.innerHTML;
-      deleteProject(title);
-    });
-  };
-  for (var x = 0; x < projectDeleteButtons.length; x++) {
-    _loop(x);
-  }
-}
-//display only items in chosen project using button
-function displayProject() {
-  var displayProject = document.getElementsByClassName("projectClassSidebar");
-  var _loop2 = function _loop2(x) {
-    displayProject[x].addEventListener("click", function () {
-      var title = displayProject[x].parentElement.firstChild.innerHTML;
-      currentView = title;
-      todoController();
-    });
-  };
-  for (var x = 0; x < displayProject.length; x++) {
-    _loop2(x);
-  }
-}
-//populate list for todo form, allows users to choose from available projects to add todo to
-function dropDownProject() {
-  var projectDropdown = document.getElementById("project");
-  projectDropdown.innerHTML = "";
-  for (var x = 0; x < listOfProjects.length; x++) {
-    var choice = document.createElement("option");
-    choice.innerHTML = listOfProjects[x].name;
-    projectDropdown.appendChild(choice);
-  }
-}
-//delete project
-function deleteProject(title) {
-  for (var x = 0; x < listOfProjects.length; x++) {
-    if (listOfProjects[x].name === title) {
-      console.log(listOfProjects[x].name);
-      listOfProjects.splice(x, 1);
-      updateLocalStorage();
-      todoController();
-      viewProjects();
-      dropDownProject();
-      break;
-    }
-  }
-}
-//add events for todo button
-var addTodoSide = document.getElementById("addTodoSide");
-addTodoSide.addEventListener("click", function () {
-  var todoInfo = document.getElementById("todoInfo");
-  todoInfo.classList.add("getInfoVisible");
-});
-//add event listener for submit button for adding todo item
-var submitTodoButton = document.getElementById("submitTodo");
-submitTodoButton.addEventListener("click", function () {
-  checkForm() ? addTodo() : console.log("invalid entries");
-});
-//get all elements for form
-var form = {
-  priority: document.getElementById("priority"),
-  project: document.getElementById("project"),
-  todo: document.getElementById("todo"),
-  dueDate: document.getElementById("dueDate"),
-  description: document.getElementById("description")
-};
-//check if todo form is filled out
-function checkForm() {
-  for (var x in form) {
-    if (form[x].value === "") {
-      return false;
-    }
-  }
-  return true;
-}
-//function to add todo elements to dom
-function addDateTitle() {
-  var date = new Date();
-  date = (0,date_fns__WEBPACK_IMPORTED_MODULE_3__["default"])(new Date(), "P");
-  var today = document.createElement("h1");
-  var dateInfo = document.createElement("h4");
-  today.innerHTML = "Today   ";
-  dateInfo.innerHTML = date;
-  titleContainer.appendChild(today);
-  titleContainer.appendChild(dateInfo);
-  projectContainerTop.appendChild(titleContainer);
-}
-//add title to main container, showing which items are being shown
-function addTitle(title) {
-  var today = document.createElement("h1");
-  var dateInfo = document.createElement("h4");
-  today.innerHTML = title;
-  titleContainer.appendChild(today);
-  projectContainerTop.appendChild(titleContainer);
-}
-//sort each projects
-//controller for deciding which items are shown
-function todoController() {
-  projectContainerMid.innerHTML = "";
-  projectContainerTop.innerHTML = "";
-  titleContainer.innerHTML = "";
-  if (currentView === "today") {
-    addDateTitle();
-    todayItems("today");
-  } else if (currentView === "all") {
-    addTitle("All Items");
-    all();
-  } else if (currentView === "urgent") {
-    addTitle("Urgent Items");
-    urgent();
-  } else if (currentView === "upcoming") {
-    addTitle("Upcoming Items");
-    upcoming();
-  } else {
-    addTitle(currentView);
-    project(currentView);
-  }
-  deleteButton();
-  editButtonFunc();
-}
-//function to display upcoming items
-function upcoming() {
-  var today = new Date();
-  for (var x = 0; x < listOfProjects.length; x++) {
-    for (var y = 0; y < listOfProjects[x].items.length; y++) {
-      var tempDate = new Date(listOfProjects[x].items[y].dueDate);
-      if ((0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(tempDate, today) === 1) {
-        createTodoDiv(listOfProjects[x].items[y]);
-      }
-    }
-  }
-}
-//function to get specific todos from single project
-function project(projTitle) {
-  for (var x = 0; x < listOfProjects.length; x++) {
-    for (var y = 0; y < listOfProjects[x].items.length; y++) {
-      if (listOfProjects[x].items[y].project === projTitle) {
-        createTodoDiv(listOfProjects[x].items[y]);
-      }
-    }
-  }
-}
-//function to filter and add only the high priority items to the dom
-function urgent() {
-  for (var x = 0; x < listOfProjects.length; x++) {
-    for (var y = 0; y < listOfProjects[x].items.length; y++) {
-      if (listOfProjects[x].items[y].priority === "high") createTodoDiv(listOfProjects[x].items[y]);
-    }
-  }
-}
-//add all todo items to container
-function all() {
-  var tempTodoContainer = [];
-  for (var x = 0; x < listOfProjects.length; x++) {
-    for (var y = 0; y < listOfProjects[x].items.length; y++) {
-      tempTodoContainer.push(listOfProjects[x].items[y]);
-    }
-  }
-  var todos = (0,_importFunc__WEBPACK_IMPORTED_MODULE_1__.sortByDates)(tempTodoContainer);
-  for (var _x = 0; _x < todos.length; _x++) {
-    createTodoDiv(todos[_x]);
-  }
-}
-
-//add only todays items to container
-function todayItems(choice) {
-  for (var x = 0; x < listOfProjects.length; x++) {
-    for (var y = 0; y < listOfProjects[x].items.length; y++) {
-      var todoContainer = document.createElement("div");
-      todoContainer.classList.add("todo");
-      var todaysDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_3__["default"])(new Date(), "MM/d/yyyy");
-      if (todaysDate === (0,date_fns__WEBPACK_IMPORTED_MODULE_3__["default"])(new Date(listOfProjects[x].items[y].dueDate), "MM/d/yyyy")) {
-        createTodoDiv(listOfProjects[x].items[y]);
-      }
-    }
-  }
-}
-//creates todo div etc. and adds it to dom
-function createTodoDiv(object) {
-  var todoContainer = document.createElement("div");
-  todoContainer.classList.add("todo");
-  var title = document.createElement("div");
-  title.classList.add("title");
-  title.innerHTML = object.title;
-  var dueDate = document.createElement("div");
-  dueDate.innerHTML = object.dueDate;
-  todoContainer.appendChild(dueDate);
-  todoContainer.appendChild(title);
-  var buttonContainer = document.createElement("div");
-  var editButton = document.createElement("button");
-  var deleteButton = document.createElement("button");
-  editButton.innerHTML = "edit";
-  deleteButton.innerHTML = "X";
-  editButton.classList.add("editButton");
-  deleteButton.classList.add("deleteButton");
-  buttonContainer.appendChild(editButton);
-  buttonContainer.appendChild(deleteButton);
-  todoContainer.appendChild(buttonContainer);
-  if (object.priority === "low") {
-    todoContainer.classList.add("low");
-  } else if (object.priority === "medium") {
-    todoContainer.classList.add("medium");
-  } else {
-    todoContainer.classList.add("high");
-  }
-  projectContainerMid.appendChild(todoContainer);
-}
-
-//add todo to chosen project
-function addTodo() {
-  var inputDate = new Date(form.dueDate.value.replace(/-/g, "/"));
-  var tempTodo = itemFactory(form.project.value, form.todo.value, form.description.value, (0,date_fns__WEBPACK_IMPORTED_MODULE_3__["default"])(new Date(inputDate), "MM/d/yyyy"), form.priority.value);
-
-  //finding project in array of projects and add todo to it
-  for (var x = 0; x < listOfProjects.length; x++) {
-    if (listOfProjects[x].name === form.project.value) {
-      listOfProjects[x].items.push(tempTodo);
-    }
-  }
-  var infoName = document.getElementById("description");
-  infoName.value = "";
-  var todoInfo = document.getElementById("todo");
-  todoInfo.value = "";
-  updateLocalStorage();
-  todoController();
-}
-//function to update local storage
-function updateLocalStorage() {
-  localStorage.setItem("list", JSON.stringify(listOfProjects));
-  var res = localStorage.getItem("list");
-  res = JSON.parse(res);
-  listOfProjects = res;
-}
-//function to initially load local storage list
-function localStorageAdd() {
-  if (!localStorage.getItem("list")) {
-    localStorage.setItem("list", JSON.stringify(listOfProjects));
-  } else {
-    var res = localStorage.getItem("list");
-    res = JSON.parse(res);
-    listOfProjects = res;
-  }
-}
-
-//today add event button. will add click event that displays all events due today
-var todayButton = document.getElementById("today");
-todayButton.addEventListener("click", function () {
-  currentView = "today";
-  todoController();
-});
-//future button, displays all items that are in the future
-var upcomingButton = document.getElementById("upcoming");
-upcomingButton.addEventListener("click", function () {
-  currentView = "upcoming";
-  todoController();
-});
-//main menu button
-var mainMenu = document.getElementById("main");
-mainMenu.addEventListener("click", function () {
-  currentView = "all";
-  todoController();
-});
-//urgent button, displays all the todos with high priority
-var urgentButton = document.getElementById("urgent");
-urgentButton.addEventListener("click", function () {
-  currentView = "urgent";
-  todoController();
-});
-
-//exit out of todo form
-var exitButtonTodo = document.getElementById("exitButton");
-exitButtonTodo.addEventListener("click", function () {
-  todoInfo.classList.remove("getInfoVisible");
-});
-//exit button for project form
-var projectExit = document.getElementById("exitButtonProject");
-projectExit.addEventListener("click", function () {
-  getInfo.classList.remove("getInfoVisible");
-});
-
-//submit button for edit form
-function editButtonEvents(x, y) {
-  var editSubmitButton = document.getElementsByClassName("editSubmitButton");
-  for (var q = 0; q < editSubmitButton.length; q++) {
-    editSubmitButton[q].addEventListener("click", function () {
-      openEdit = false;
-      var editedTodo = itemFactory(document.getElementById("projectList").value, document.getElementById("todoEdit").value, document.getElementById("descriptionEdit").value, (0,date_fns__WEBPACK_IMPORTED_MODULE_3__["default"])(new Date(new Date(document.getElementById("dueDateEdit").value.replace(/-/g, "/"))), "MM/d/yyyy"), document.getElementById("priorityEdit").value);
-      for (var z = 0; z < listOfProjects.length; z++) {
-        if (listOfProjects[z].name === editedTodo.project) {
-          listOfProjects[x].items.splice(y, 1);
-          listOfProjects[z].items.push(editedTodo);
-          updateLocalStorage();
-          todoController();
-          return;
-        }
-      }
-    });
-  }
-  var editCancelButton = document.getElementsByClassName("editCancelButton");
-  for (var _x2 = 0; _x2 < editCancelButton.length; _x2++) {
-    editCancelButton[_x2].addEventListener("click", function () {
-      openEdit = false;
-      todoController();
-    });
-  }
-}
-
-//delete todo
-function deleteButton() {
-  var deleteTodo = document.getElementsByClassName("deleteButton");
-  var _loop3 = function _loop3(x) {
-    deleteTodo[x].addEventListener("click", function () {
-      var title = deleteTodo[x].parentElement.parentElement.getElementsByClassName("title")[0].innerHTML;
-      for (var _x3 = 0; _x3 < listOfProjects.length; _x3++) {
-        for (var y = 0; y < listOfProjects[_x3].items.length; y++) {
-          if (listOfProjects[_x3].items[y].title === title) {
-            listOfProjects[_x3].items.splice(y, 1);
-            updateLocalStorage();
-            todoController();
-          }
-        }
-      }
-    });
-  };
-  for (var x = 0; x < deleteTodo.length; x++) {
-    _loop3(x);
-  }
-}
-//function for edit button, will expand todo item and allow user to update the localstorage with new todo
-//value determines whether or not editor is allowed to open, only allowed if another editor is not already open
-var openEdit = false;
-function editButtonFunc() {
-  var editTodo = document.getElementsByClassName("editButton");
-  var _loop4 = function _loop4(x) {
-    editTodo[x].addEventListener("click", function () {
-      if (openEdit == false) {
-        var title = editTodo[x].parentElement.parentElement.getElementsByClassName("title")[0].innerHTML;
-        var todoBox = editTodo[x].parentElement.parentElement;
-        for (var _x4 = 0; _x4 < listOfProjects.length; _x4++) {
-          for (var y = 0; y < listOfProjects[_x4].items.length; y++) {
-            if (listOfProjects[_x4].items[y].title === title) {
-              var outputX = _x4;
-              var outputY = y;
-              (0,_dom__WEBPACK_IMPORTED_MODULE_2__.editContainer)(todoBox, outputX, outputY);
-              updateLocalStorage();
-              break;
-            }
-          }
-        }
-      }
-    });
-  };
-  for (var x = 0; x < editTodo.length; x++) {
-    _loop4(x);
-  }
-}
-
-//create elements for todo edit
-
-/*
-      const project = document.createElement("div");
-      project.innerHTML = listOfProjects[x].items[y].project;
-      todoContainer.appendChild(project);
-      const description = document.createElement("div");
-      description.innerHTML = listOfProjects[x].items[y].description;
-      todoContainer.appendChild(description);
-
-            const priority = document.createElement("div");
-      priority.innerHTML = listOfProjects[x].items[y].priority;
-            todoContainer.appendChild(priority);
-      */
-})();
-
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=main153a34ab0b4c96aa49db.js.map
+//# sourceMappingURL=maincc688c8a3ff6df906a30.js.map

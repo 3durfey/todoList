@@ -94,6 +94,7 @@ i {
   overflow: auto;
   align-items: center;
   border-radius: 10px;
+  font-size: 25px;
 }
 .projectContainerMid::-webkit-scrollbar {
   display: none;
@@ -363,7 +364,7 @@ edit container attributes
   outline: 5px solid #c00;
 }
 .dateCheckbox > div {
-  margin-top: 9px;
+  margin-top: 3px;
 }
 .priorityColor {
   background-color: red;
