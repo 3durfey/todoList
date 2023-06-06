@@ -60,9 +60,37 @@ footer {
   min-width: 300px;
   padding-left: 50px;
 }
-
-i {
-  padding: 10px;
+#main,
+#today,
+#urgent,
+#addProject,
+#addTodoSide,
+#viewProjects {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#viewProjects > .icon {
+  margin-left: 0;
+}
+#upcoming {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 0;
+}
+.addText {
+  margin-left: 10px;
+}
+#urgent {
+  margin-left: 8px;
+}
+.icon {
+  margin-left: 20px;
+}
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
 }
 .projectContainer {
   display: flex;

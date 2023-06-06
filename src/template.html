@@ -11,7 +11,6 @@
       rel="stylesheet"
     />
     <script
-      src="https://kit.fontawesome.com/b05daecb25.js"
     ></script>
   </head>
   <body>
@@ -25,19 +24,27 @@
     <div class="main">
 
         <div id="sidebar">
-          <button id="main"><i class="fas fa-home"></i>
-            All</button>
-          <button id="today"><i class="fas fa-calendar"></i>Today</button>
-          <button id="upcoming"><i class="fas fa-plus"></i>Upcoming</button>
-          <button id="urgent"><i class="fas fa-exclamation"></i>Urgent</button>
+          <button id="main">
+            <i class="fas fa-home"></i>
+            <div class="icon">All</div>
+            </button>
+          <button id="today"><i class="fas fa-calendar"></i>
+            <div class="icon">Today</div></button>
+          <button class="icon" id="upcoming"><i class="fas fa-plus"></i>
+            <div class="icon">Upcoming</div></button>
+          <button id="urgent"><i class="fas fa-exclamation"></i><div class="icon">Urgent</div></button>
         <div class="projectsLabel">Projects</div>
-        <button id="addProject"><i class="fas fa-plus"></i>New Project</button>
+        <button id="addProject"><i class="fas fa-plus"></i> <div class="addText">New Project</div></button>
 
         <button id ="addTodoSide">
-          <i class="fas fa-plus"></i> Add ToDo</button>
+          <i class="fas fa-plus"></i> 
+          <div class="addText">Add ToDo</div>
+        </button>
 
-        <button class="viewProjects">
-          <i class="fa-solid fa-arrow-right-long"></i>View All</button>
+        <button id="viewProjects">
+          <div class="icon"><i class="fas fa-arrow-right-long"></i></div>
+          <div class="addText">View All</div>
+          </button>
         <div id="projectNameContainer"></div>
       </div>
       <div class="projectContainerSides"></div>

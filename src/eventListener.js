@@ -70,18 +70,23 @@ function RunEventListeners() {
   });
   //view all projects button events in sidebar
   let boolViewProjects = false;
-  const viewProjectsIcon = document.querySelector(".viewProjects i");
-  const viewProjectsButton = document.querySelector(".viewProjects");
+  const viewProjectsIcon = document.querySelector("#viewProjects i");
+  console.log(viewProjectsIcon + "test");
+  const viewProjectsButton = document.querySelector("#viewProjects");
   viewProjectsButton.addEventListener("click", () => {
+    console.log("test");
     if (boolViewProjects === false) {
       projectNameContainer.innerHTML = "";
-      viewProjectsIcon.classList.toggle("fa-arrow-down-long");
-      viewProjectsIcon.classList.toggle("fa-arrow-right-long");
+      viewProjectsIcon.classList.remove("fa-arrow-right-long");
+      viewProjectsIcon.classList.add("fa-arrow-down-long");
+      console.log(viewProjectsIcon.classList);
+
       viewProjects();
     } else {
       projectNameContainer.innerHTML = "";
-      viewProjectsIcon.classList.toggle("fa-arrow-down-long");
-      viewProjectsIcon.classList.toggle("fa-arrow-right-long");
+      viewProjectsIcon.classList.remove("fa-arrow-down-long");
+      viewProjectsIcon.classList.add("fa-arrow-right-long");
+      console.log(viewProjectsIcon.classList);
     }
     boolViewProjects === false
       ? (boolViewProjects = true)
