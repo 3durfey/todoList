@@ -3,6 +3,12 @@ import { format, compareAsc } from "date-fns";
 import { sortByDates } from "./importFunc";
 import { editContainer } from "./dom";
 import { RunEventListeners, form, dropDownProject } from "./eventListener";
+import { library, dom } from "@fortawesome/fontawesome-svg-core";
+import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
+
+library.add(faCheck);
+dom.watch();
+
 //dom elements
 const projectContainerMid = document.getElementById("projectContainerMid");
 const projectContainerTop = document.getElementById("projectContainerTop");
@@ -122,7 +128,6 @@ function checkmark() {
         for (let y = 0; y < listOfProjects[x].items.length; y++) {
           if (listOfProjects[x].items[y].title === title) {
             listOfProjects[x].items[y].completed = checked;
-            console.log(listOfProjects[x].items[y].completed);
             item = listOfProjects[x].items[y];
             updateLocalStorage();
             todoController();
