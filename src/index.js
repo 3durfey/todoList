@@ -3,11 +3,9 @@ import { format, compareAsc } from "date-fns";
 import { sortByDates } from "./importFunc";
 import { editContainer } from "./dom";
 import { RunEventListeners, form, dropDownProject } from "./eventListener";
-import { library, dom } from "@fortawesome/fontawesome-svg-core";
-import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 
-library.add(faCheck);
-dom.watch();
+import { library, dom } from "@fortawesome/fontawesome-free";
+import { fas } from "@fortawesome/free-solid-svg-icons";
 
 //dom elements
 const projectContainerMid = document.getElementById("projectContainerMid");
